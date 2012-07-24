@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace Calendar.Cls
 {
-    class Marcacao
+    public class Marcacao
     {
         private int idMarcacao, idCliente, idTipoTratamento;
         private string observacores;
