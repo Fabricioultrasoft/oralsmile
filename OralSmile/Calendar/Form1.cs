@@ -104,10 +104,28 @@ namespace Calendar
 
             m_Appointments.Add(m_App);*/
 
-            frmMarcacao form = new frmMarcacao();
-            Cliente cli = new Cliente();
-            
+            frmMarcacao form = new frmMarcacao();            
             form.ShowDialog();
+            Marcacao marca = form.Appointment;
+
+            Appointment app = new Appointment();
+            app.StartDate = marca.DataHoraInicio;
+            app.EndDate = marca.DataHoraFim;
+            app.IdMarcacao = marca.IdMarcacao;
+            app.Obervacoes = marca.Observacoes;
+
+            Cliente cli = new Cliente();
+            cli = cli.pesquisaCliente(marca.IdCliente);
+
+            TipoTratamento tipo = new TipoTratamento();
+            tipo = tipo.pesquisarTipo(marca.IdTipoTratamento);
+
+            if (marca.Observacoes.Equals(string.Empty))
+                app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
+            else
+                app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + marca.Observacoes;
+
+            m_Appointments.Add(app);
 
             dayView1.Invalidate();
         }

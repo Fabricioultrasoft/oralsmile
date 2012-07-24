@@ -12,23 +12,23 @@ namespace Calendar
 {
     public partial class frmMarcacao : Form
     {
-        private Cliente cliente;
+        private Marcacao marcacao;
 
         public frmMarcacao()
         {
-            this.cliente = new Cliente();
+            this.marcacao = new Marcacao();
             InitializeComponent();
         }
 
-        Cliente Cliente
+        public Marcacao Appointment
         {
             set
             {
-                this.cliente = value;
+                this.marcacao = value;
             }
             get
             {
-                return this.cliente;
+                return this.marcacao;
             }
         }
     }
