@@ -105,6 +105,8 @@ namespace Calendar
             m_Appointments.Add(m_App);*/
 
             frmMarcacao form = new frmMarcacao();
+            Cliente cli = new Cliente();
+            
             form.ShowDialog();
 
             dayView1.Invalidate();
