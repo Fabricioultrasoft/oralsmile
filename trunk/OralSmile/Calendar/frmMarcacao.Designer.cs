@@ -60,7 +60,6 @@
             this.cmbIdTipoTratamento.Name = "cmbIdTipoTratamento";
             this.cmbIdTipoTratamento.Size = new System.Drawing.Size(121, 21);
             this.cmbIdTipoTratamento.TabIndex = 4;
-            this.cmbIdTipoTratamento.SelectedIndexChanged += new System.EventHandler(this.cmbIdTipoTratamento_SelectedIndexChanged);
             // 
             // cmbCliente
             // 
@@ -69,7 +68,6 @@
             this.cmbCliente.Name = "cmbCliente";
             this.cmbCliente.Size = new System.Drawing.Size(245, 21);
             this.cmbCliente.TabIndex = 5;
-            this.cmbCliente.SelectedIndexChanged += new System.EventHandler(this.cmbCliente_SelectedIndexChanged);
             // 
             // label1
             // 

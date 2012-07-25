@@ -400,5 +400,51 @@ namespace Calendar.Cls
 
             return cli;
         }
+
+
+        public Cliente[] todosClientes()
+        {
+            Cliente[] cliente = new Cliente[contarClientes()];
+            DataBase db = new DataBase();
+
+            SqlParameter[] p = new SqlParameter[1];
+
+            p[0] = new SqlParameter();
+
+            SqlDataReader dr = db.executaSQLParams("Select idCliente, nome, apelidos from Clientes;", p, false);
+
+
+            if (dr.HasRows)
+            {
+                int x = 0;
+                while (dr.Read())
+                {
+                    cliente[x] = new Cliente();
+                    cliente[x].IdCliente = Int32.Parse(dr[0].ToString());
+                    cliente[x].Nome = dr[1].ToString();
+                    cliente[x].Apelidos = dr[2].ToString();
+                    x++;
+                }
+            }
+
+            return cliente;
+        }
+
+
+        private int contarClientes()
+        {
+            DataBase db = new DataBase();
+            SqlParameter[] p = new SqlParameter[1];
+            p[0] = new SqlParameter();
+
+            SqlDataReader dr = db.executaSQLParams("select count(*) from Clientes;", p, false);
+
+            if (dr.HasRows)
+            {
+                dr.Read();
+                return Int32.Parse(dr[0].ToString());
+            }
+            return -1;
+        }
     }
 }
