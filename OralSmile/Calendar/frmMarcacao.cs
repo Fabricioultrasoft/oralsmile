@@ -36,23 +36,8 @@ namespace Calendar
             marcacao.Observacoes = txtObs.Text;
             marcacao.DataHoraInicio = Convert.ToDateTime(txtDataInicio.Text + " " + txtHoraInicio.Text);
             marcacao.DataHoraFim = Convert.ToDateTime(txtDataFinal.Text + " " + txtHoraFinal.Text);
-            //marcacao.IdTipoTratamento =
-            //marcacao.IdCliente =             
-        }
-
-        private void cmbIdTipoTratamento_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //string rrr = cmbIdTipoTratamento.SelectedItem.ToString();
-            //string hhh = cmbIdTipoTratamento.SelectedValue.ToString();
-            //Item ee = (Item)cmbIdTipoTratamento.Items[1];
-
-            //string qwe = ee.Texto;
-            //string hop = ee.ID.ToString();
-        }
-
-        private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            marcacao.IdTipoTratamento = (cmbIdTipoTratamento.SelectedItem as Item).ID;
+            marcacao.IdCliente = (cmbCliente.SelectedItem as Item).ID;
         }
 
 
@@ -62,9 +47,16 @@ namespace Calendar
             this.marcacao = new Marcacao();
 
             //Carregar ComboBox Clientes
+            carregarClientes();
 
 
             //Carregar ComboBox Tipos de Tratamento
+            carregarTiposTratamento();
+        }
+
+
+        private void carregarTiposTratamento()
+        {
             TipoTratamento aux = new TipoTratamento();
             TipoTratamento[] tipos = aux.todosTipos();
 
@@ -75,9 +67,28 @@ namespace Calendar
             cmbIdTipoTratamento.Items.Add(new Item("Seleccione...", 0));
             cmbIdTipoTratamento.SelectedIndex = 0;
 
-            for(int i = 0; i < tipos.Length; i++)
+            for (int i = 0; i < tipos.Length; i++)
             {
                 cmbIdTipoTratamento.Items.Add(new Item(tipos[i].Descricao, tipos[i].IdTipoTratamento));
+            }
+        }
+
+
+        private void carregarClientes()
+        {
+            Cliente cli = new Cliente();
+            Cliente[] lista = cli.todosClientes();
+
+            cmbCliente.Items.Clear();
+            cmbCliente.DisplayMember = "Texto";
+            cmbCliente.ValueMember = "ID";
+
+            cmbCliente.Items.Add(new Item("Seleccione...", 0));
+            cmbCliente.SelectedIndex = 0;
+
+            for (int i = 0; i < lista.Length; i++)
+            {
+                cmbCliente.Items.Add(new Item(lista[i].Nome + " " + lista[i].Apelidos, lista[i].IdCliente));
             }
         }
     }
