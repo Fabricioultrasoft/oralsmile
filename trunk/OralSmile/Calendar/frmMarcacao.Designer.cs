@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.txtObs = new System.Windows.Forms.TextBox();
+            this.cmbIdTipoTratamento = new System.Windows.Forms.ComboBox();
+            this.cmbCliente = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,29 +45,31 @@
             this.txtHoraFinal = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
-            // textBox5
+            // txtObs
             // 
-            this.textBox5.Location = new System.Drawing.Point(15, 109);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(632, 70);
-            this.textBox5.TabIndex = 6;
+            this.txtObs.Location = new System.Drawing.Point(15, 109);
+            this.txtObs.Multiline = true;
+            this.txtObs.Name = "txtObs";
+            this.txtObs.Size = new System.Drawing.Size(632, 70);
+            this.txtObs.TabIndex = 6;
             // 
-            // comboBox1
+            // cmbIdTipoTratamento
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(138, 64);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 4;
+            this.cmbIdTipoTratamento.FormattingEnabled = true;
+            this.cmbIdTipoTratamento.Location = new System.Drawing.Point(138, 64);
+            this.cmbIdTipoTratamento.Name = "cmbIdTipoTratamento";
+            this.cmbIdTipoTratamento.Size = new System.Drawing.Size(121, 21);
+            this.cmbIdTipoTratamento.TabIndex = 4;
+            this.cmbIdTipoTratamento.SelectedIndexChanged += new System.EventHandler(this.cmbIdTipoTratamento_SelectedIndexChanged);
             // 
-            // comboBox2
+            // cmbCliente
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(402, 12);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(245, 21);
-            this.comboBox2.TabIndex = 5;
+            this.cmbCliente.FormattingEnabled = true;
+            this.cmbCliente.Location = new System.Drawing.Point(402, 12);
+            this.cmbCliente.Name = "cmbCliente";
+            this.cmbCliente.Size = new System.Drawing.Size(245, 21);
+            this.cmbCliente.TabIndex = 5;
+            this.cmbCliente.SelectedIndexChanged += new System.EventHandler(this.cmbCliente_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -135,6 +137,7 @@
             this.btnOK.TabIndex = 7;
             this.btnOK.Text = "Ok";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancelar
             // 
@@ -202,9 +205,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.cmbCliente);
+            this.Controls.Add(this.cmbIdTipoTratamento);
+            this.Controls.Add(this.txtObs);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmMarcacao";
@@ -212,6 +215,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Marcações";
+            this.Load += new System.EventHandler(this.frmMarcacao_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,9 +223,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.TextBox txtObs;
+        private System.Windows.Forms.ComboBox cmbIdTipoTratamento;
+        private System.Windows.Forms.ComboBox cmbCliente;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

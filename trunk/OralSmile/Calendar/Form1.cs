@@ -108,26 +108,30 @@ namespace Calendar
             form.ShowDialog();
             Marcacao marca = form.Appointment;
 
-            Appointment app = new Appointment();
-            app.StartDate = marca.DataHoraInicio;
-            app.EndDate = marca.DataHoraFim;
-            app.IdMarcacao = marca.IdMarcacao;
-            app.Obervacoes = marca.Observacoes;
+            if(marca.IdCliente != -1 )
+            {
+                Appointment app = new Appointment();
+                app.StartDate = marca.DataHoraInicio;
+                app.EndDate = marca.DataHoraFim;
+                app.IdMarcacao = marca.IdMarcacao;
+                app.Obervacoes = marca.Observacoes;
 
-            Cliente cli = new Cliente();
-            cli = cli.pesquisaCliente(marca.IdCliente);
+                Cliente cli = new Cliente();
+                cli = cli.pesquisaCliente(marca.IdCliente);
 
-            TipoTratamento tipo = new TipoTratamento();
-            tipo = tipo.pesquisarTipo(marca.IdTipoTratamento);
+                TipoTratamento tipo = new TipoTratamento();
+                tipo = tipo.pesquisarTipo(marca.IdTipoTratamento);
 
-            if (marca.Observacoes.Equals(string.Empty))
-                app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
-            else
-                app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + marca.Observacoes;
+                if (marca.Observacoes.Equals(string.Empty))
+                    app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
+                else
+                    app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + marca.Observacoes;
 
-            m_Appointments.Add(app);
+                m_Appointments.Add(app);
 
-            dayView1.Invalidate();
+                dayView1.Invalidate();
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)

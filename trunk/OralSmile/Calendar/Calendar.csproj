@@ -64,6 +64,7 @@
     <Compile Include="Cls\Cliente.cs" />
     <Compile Include="Cls\Conector.cs" />
     <Compile Include="Cls\DataBase.cs" />
+    <Compile Include="Cls\Item.cs" />
     <Compile Include="Cls\Marcacao.cs" />
     <Compile Include="Cls\TipoTratamento.cs" />
     <Compile Include="Form1.cs">

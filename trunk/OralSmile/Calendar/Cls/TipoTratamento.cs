@@ -68,5 +68,48 @@ namespace Calendar.Cls
 
             return aux;
         }
+
+
+        public TipoTratamento[] todosTipos()
+        {
+            TipoTratamento[] tipos = new TipoTratamento[contarTipos()];
+
+            DataBase db = new DataBase();
+
+            SqlParameter[] p = new SqlParameter[1];
+
+            p[0] = new SqlParameter();
+
+            SqlDataReader dr = db.executaSQLParams("Select idTipoTratamento, descricao from TiposTratamento;", p, false);
+
+
+            if (dr.HasRows)
+            {
+                int x = 0;
+                while (dr.Read())
+                {
+                    tipos[x] = new TipoTratamento(Int32.Parse(dr[0].ToString()), dr[1].ToString());
+                    x++;
+                }
+            }
+
+            return tipos;
+        }
+
+        private int contarTipos()
+        {
+            DataBase db = new DataBase();
+            SqlParameter[] p = new SqlParameter[1];
+            p[0] = new SqlParameter();
+
+            SqlDataReader dr = db.executaSQLParams("select count(*) from TiposTratamento;", p, false);
+
+            if (dr.HasRows)
+            {
+                dr.Read();
+                return Int32.Parse(dr[0].ToString());
+            }
+            return -1;
+        }
     }
 }
