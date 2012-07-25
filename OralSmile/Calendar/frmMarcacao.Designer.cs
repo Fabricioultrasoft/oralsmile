@@ -207,7 +207,9 @@
             this.Controls.Add(this.cmbIdTipoTratamento);
             this.Controls.Add(this.txtObs);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(675, 260);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(675, 260);
             this.Name = "frmMarcacao";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
