@@ -97,24 +97,27 @@ namespace Calendar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            /*Appointment m_App = new Appointment();
-            m_App.StartDate = dayView1.SelectionStart;
-            m_App.EndDate = dayView1.SelectionEnd;
-            m_App.BorderColor = Color.Red;
+            frmMarcacao form = new frmMarcacao();
 
-            m_Appointments.Add(m_App);*/
+            if (!dayView1.SelectionStart.ToShortDateString().Equals("01-01-0001"))
+            {
+                form.Appointment.DataHoraInicio = dayView1.SelectionStart;
+                form.Appointment.DataHoraFim = dayView1.SelectionEnd;
+            }
 
-            frmMarcacao form = new frmMarcacao();            
             form.ShowDialog();
             Marcacao marca = form.Appointment;
 
-            if(marca.IdCliente != -1 )
+            if(marca.IdCliente != -1 )//&& marca.IdCliente > 0 && marca.IdTipoTratamento > 0)
             {
                 Appointment app = new Appointment();
                 app.StartDate = marca.DataHoraInicio;
                 app.EndDate = marca.DataHoraFim;
                 app.IdMarcacao = marca.IdMarcacao;
                 app.Obervacoes = marca.Observacoes;
+
+                //Registo na base de dados
+                marca.criarMarcacao(marca.IdCliente, marca.DataHoraInicio, marca.DataHoraFim, marca.IdTipoTratamento, marca.Observacoes);
 
                 Cliente cli = new Cliente();
                 cli = cli.pesquisaCliente(marca.IdCliente);

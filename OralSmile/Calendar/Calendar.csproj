@@ -79,6 +79,12 @@
     <Compile Include="frmMarcacao.Designer.cs">
       <DependentUpon>frmMarcacao.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPesquisaCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPesquisaCliente.Designer.cs">
+      <DependentUpon>frmPesquisaCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

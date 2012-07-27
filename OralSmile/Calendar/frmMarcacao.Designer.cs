@@ -126,6 +126,7 @@
             this.btnPesquisa.TabIndex = 12;
             this.btnPesquisa.Text = "Pesquisar Cliente";
             this.btnPesquisa.UseVisualStyleBackColor = true;
+            this.btnPesquisa.Click += new System.EventHandler(this.btnPesquisa_Click);
             // 
             // btnOK
             // 
@@ -145,6 +146,7 @@
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // txtDataInicio
             // 
