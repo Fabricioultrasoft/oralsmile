@@ -16,6 +16,9 @@ namespace Calendar
 
         public frmMarcacao()
         {
+            //Inicialização do objecto Marcação
+            this.marcacao = new Marcacao();
+
             InitializeComponent();
         }
 
@@ -33,18 +36,35 @@ namespace Calendar
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            marcacao.Observacoes = txtObs.Text;
-            marcacao.DataHoraInicio = Convert.ToDateTime(txtDataInicio.Text + " " + txtHoraInicio.Text);
-            marcacao.DataHoraFim = Convert.ToDateTime(txtDataFinal.Text + " " + txtHoraFinal.Text);
-            marcacao.IdTipoTratamento = (cmbIdTipoTratamento.SelectedItem as Item).ID;
-            marcacao.IdCliente = (cmbCliente.SelectedItem as Item).ID;
+            try
+            {
+                marcacao.Observacoes = txtObs.Text;
+                marcacao.DataHoraInicio = Convert.ToDateTime(txtDataInicio.Text + " " + txtHoraInicio.Text);
+                marcacao.DataHoraFim = Convert.ToDateTime(txtDataFinal.Text + " " + txtHoraFinal.Text);
+                marcacao.IdTipoTratamento = (cmbIdTipoTratamento.SelectedItem as Item).ID;
+                marcacao.IdCliente = (cmbCliente.SelectedItem as Item).ID;
+
+                if(cmbCliente.SelectedIndex > 0 && cmbIdTipoTratamento.SelectedIndex > 0)
+                    this.Close();
+                else
+                    MessageBox.Show("Campos Cliente e/ou Tipo de Tratamento Incorrecto(s)", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Datas Incorrectas", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
         private void frmMarcacao_Load(object sender, EventArgs e)
         {
-            //Inicialização do objecto Marcação
-            this.marcacao = new Marcacao();
+            if (!marcacao.DataHoraInicio.ToShortDateString().Equals("01-01-0001"))
+            {
+                txtDataInicio.Text = marcacao.DataHoraInicio.ToShortDateString();
+                txtHoraInicio.Text = marcacao.DataHoraInicio.ToShortTimeString();
+                txtDataFinal.Text = marcacao.DataHoraFim.ToShortDateString();
+                txtHoraFinal.Text = marcacao.DataHoraFim.ToShortTimeString();
+            }
 
             //Carregar ComboBox Clientes
             carregarClientes();
@@ -89,6 +109,29 @@ namespace Calendar
             for (int i = 0; i < lista.Length; i++)
             {
                 cmbCliente.Items.Add(new Item(lista[i].Nome + " " + lista[i].Apelidos, lista[i].IdCliente));
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.marcacao = new Marcacao();
+            this.Close();
+        }
+
+        private void btnPesquisa_Click(object sender, EventArgs e)
+        {
+            frmPesquisaCliente form = new frmPesquisaCliente();
+            form.ShowDialog();
+
+            Cliente cli = form.Cliente;
+
+            for (int i = 0; i < cmbCliente.Items.Count; i++)
+            {
+                if (((Item)cmbCliente.Items[i]).ID == cli.IdCliente)
+                {
+                    cmbCliente.SelectedIndex = i;
+                    break;
+                }
             }
         }
     }

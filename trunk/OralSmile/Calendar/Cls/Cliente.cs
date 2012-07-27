@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Calendar.Cls
 {
-    class Cliente
+    public class Cliente
     {
         private int idCliente, codigo_postal, codigo_postal_1, telefone, telemovel;
         private long bi, n_contribuinte, n_utente, n_cliente;
