@@ -209,5 +209,11 @@ namespace Calendar
         {
             dayView1.StartDate = monthCalendar1.SelectionStart;
         }
+
+        private void btnNovoCliente_Click(object sender, EventArgs e)
+        {
+            frmNovoCliente form = new frmNovoCliente();
+            form.ShowDialog();
+        }
     }
 }

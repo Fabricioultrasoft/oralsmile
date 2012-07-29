@@ -276,6 +276,7 @@ namespace Calendar
             this.btnNovoCliente.Size = new System.Drawing.Size(84, 23);
             this.btnNovoCliente.TabIndex = 23;
             this.btnNovoCliente.Text = "Novo Cliente";
+            this.btnNovoCliente.Click += new System.EventHandler(this.btnNovoCliente_Click);
             // 
             // btnClientes
             // 

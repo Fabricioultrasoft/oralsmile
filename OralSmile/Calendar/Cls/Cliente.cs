@@ -222,7 +222,7 @@ namespace Calendar.Cls
         }
 
 
-        public bool novoCliente(string nome, string apelidos, string morada, int codigo_postal, int codigo_postal_1, string localidade, int telefone, int telemovel, string profissao, int seguro, long bi, long n_utente, long n_contribuinte, long n_cliente)
+        public bool novoCliente()
         {
             SqlParameter[] p = new SqlParameter[14];
 
@@ -233,46 +233,46 @@ namespace Calendar.Cls
             }
 
             p[0].ParameterName = "@nome";
-            p[0].Value = nome;
+            p[0].Value = this.nome;
 
             p[1].ParameterName = "@apelidos";
-            p[1].Value = apelidos;
+            p[1].Value = this.apelidos;
 
             p[2].ParameterName = "@morada";
-            p[2].Value = morada;
+            p[2].Value = this.morada;
 
             p[3].ParameterName = "@codigo_postal";
-            p[3].Value = codigo_postal;
+            p[3].Value = this.codigo_postal;
 
             p[4].ParameterName = "@codigo_postal_1";
-            p[4].Value = codigo_postal_1;
+            p[4].Value = this.codigo_postal_1;
 
             p[5].ParameterName = "@localidade";
-            p[5].Value = localidade;
+            p[5].Value = this.localidade;
 
             p[6].ParameterName = "@telefone";
-            p[6].Value = telefone;
+            p[6].Value = this.telefone;
 
             p[7].ParameterName = "@telemovel";
-            p[7].Value = telemovel;
+            p[7].Value = this.telemovel;
 
             p[8].ParameterName = "@profissao";
-            p[8].Value = profissao;
+            p[8].Value = this.profissao;
 
             p[9].ParameterName = "@seguro";
-            p[9].Value = seguro;
+            p[9].Value = this.seguro;
 
             p[10].ParameterName = "@n_utente";
-            p[10].Value = n_utente;
+            p[10].Value = this.n_utente;
 
             p[11].ParameterName = "@n_contribuinte";
-            p[11].Value = n_contribuinte;
+            p[11].Value = this.n_contribuinte;
 
             p[12].ParameterName = "@bi";
-            p[12].Value = bi;
+            p[12].Value = this.bi;
 
             p[13].ParameterName = "@n_cliente";
-            p[13].Value = n_cliente;
+            p[13].Value = this.n_cliente;
 
 
             DataBase bd = new DataBase();
@@ -285,7 +285,7 @@ namespace Calendar.Cls
         }
 
 
-        public bool editarCliente(int idCliente, string nome, string apelidos, string morada, int codigo_postal, int codigo_postal_1, string localidade, int telefone, int telemovel, string profissao, int seguro, long bi, long n_utente, long n_contribuinte, long n_cliente)
+        public bool editarCliente()
         {
             SqlParameter[] p = new SqlParameter[15];
 
@@ -296,49 +296,49 @@ namespace Calendar.Cls
             }
 
             p[0].ParameterName = "@nome";
-            p[0].Value = nome;
+            p[0].Value = this.nome;
 
             p[1].ParameterName = "@apelidos";
-            p[1].Value = apelidos;
+            p[1].Value = this.apelidos;
 
             p[2].ParameterName = "@morada";
-            p[2].Value = morada;
+            p[2].Value = this.morada;
 
             p[3].ParameterName = "@codigo_postal";
-            p[3].Value = codigo_postal;
+            p[3].Value = this.codigo_postal;
 
             p[4].ParameterName = "@codigo_postal_1";
-            p[4].Value = codigo_postal_1;
+            p[4].Value = this.codigo_postal_1;
 
             p[5].ParameterName = "@localidade";
-            p[5].Value = localidade;
+            p[5].Value = this.localidade;
 
             p[6].ParameterName = "@telefone";
-            p[6].Value = telefone;
+            p[6].Value = this.telefone;
 
             p[7].ParameterName = "@telemovel";
-            p[7].Value = telemovel;
+            p[7].Value = this.telemovel;
 
             p[8].ParameterName = "@profissao";
-            p[8].Value = profissao;
+            p[8].Value = this.profissao;
 
             p[9].ParameterName = "@seguro";
-            p[9].Value = seguro;
+            p[9].Value = this.seguro;
 
             p[10].ParameterName = "@n_utente";
-            p[10].Value = n_utente;
+            p[10].Value = this.n_utente;
 
             p[11].ParameterName = "@n_contribuinte";
-            p[11].Value = n_contribuinte;
+            p[11].Value = this.n_contribuinte;
 
             p[12].ParameterName = "@bi";
-            p[12].Value = bi;
+            p[12].Value = this.bi;
 
             p[13].ParameterName = "@n_cliente";
-            p[13].Value = n_cliente;
+            p[13].Value = this.n_cliente;
 
             p[14].ParameterName = "@idCliente";
-            p[14].Value = idCliente;
+            p[14].Value = this.idCliente;
 
 
             DataBase bd = new DataBase();

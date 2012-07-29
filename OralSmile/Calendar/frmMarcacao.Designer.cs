@@ -208,6 +208,7 @@
             this.Controls.Add(this.cmbCliente);
             this.Controls.Add(this.cmbIdTipoTratamento);
             this.Controls.Add(this.txtObs);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(675, 260);
             this.MinimizeBox = false;
