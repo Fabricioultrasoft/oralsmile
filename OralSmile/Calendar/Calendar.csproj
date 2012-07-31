@@ -103,6 +103,9 @@
     <EmbeddedResource Include="frmMarcacao.resx">
       <DependentUpon>frmMarcacao.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmPesquisaCliente.resx">
+      <DependentUpon>frmPesquisaCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

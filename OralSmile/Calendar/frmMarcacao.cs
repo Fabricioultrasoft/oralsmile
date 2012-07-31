@@ -125,14 +125,19 @@ namespace Calendar
 
             Cliente cli = form.Cliente;
 
-            for (int i = 0; i < cmbCliente.Items.Count; i++)
+            if (cli.IdCliente != -1)
             {
-                if (((Item)cmbCliente.Items[i]).ID == cli.IdCliente)
+                for (int i = 0; i < cmbCliente.Items.Count; i++)
                 {
-                    cmbCliente.SelectedIndex = i;
-                    break;
+                    if (((Item)cmbCliente.Items[i]).ID == cli.IdCliente)
+                    {
+                        cmbCliente.SelectedIndex = i;
+                        break;
+                    }
                 }
             }
+            else
+                cmbCliente.SelectedIndex = 0;
         }
     }
 
