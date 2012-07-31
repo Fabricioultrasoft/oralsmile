@@ -98,14 +98,17 @@
             this.txtContribuinte.Size = new System.Drawing.Size(100, 20);
             this.txtContribuinte.TabIndex = 10;
             this.txtContribuinte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtContribuinte.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContribuinte_KeyPress);
             // 
             // txtTelefone
             // 
             this.txtTelefone.Location = new System.Drawing.Point(285, 110);
+            this.txtTelefone.MaxLength = 9;
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(100, 20);
             this.txtTelefone.TabIndex = 8;
             this.txtTelefone.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTelefone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefone_KeyPress);
             // 
             // txtBI
             // 
@@ -114,14 +117,17 @@
             this.txtBI.Size = new System.Drawing.Size(100, 20);
             this.txtBI.TabIndex = 9;
             this.txtBI.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtBI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBI_KeyPress);
             // 
             // txtTelemovel
             // 
             this.txtTelemovel.Location = new System.Drawing.Point(87, 110);
+            this.txtTelemovel.MaxLength = 9;
             this.txtTelemovel.Name = "txtTelemovel";
             this.txtTelemovel.Size = new System.Drawing.Size(100, 20);
             this.txtTelemovel.TabIndex = 7;
             this.txtTelemovel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTelemovel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelemovel_KeyPress);
             // 
             // txtLocalidade
             // 
@@ -133,18 +139,22 @@
             // txtCodPostal_1
             // 
             this.txtCodPostal_1.Location = new System.Drawing.Point(199, 84);
+            this.txtCodPostal_1.MaxLength = 3;
             this.txtCodPostal_1.Name = "txtCodPostal_1";
             this.txtCodPostal_1.Size = new System.Drawing.Size(39, 20);
             this.txtCodPostal_1.TabIndex = 5;
             this.txtCodPostal_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCodPostal_1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodPostal_1_KeyPress);
             // 
             // txtCodPostal
             // 
             this.txtCodPostal.Location = new System.Drawing.Point(87, 84);
+            this.txtCodPostal.MaxLength = 4;
             this.txtCodPostal.Name = "txtCodPostal";
             this.txtCodPostal.Size = new System.Drawing.Size(100, 20);
             this.txtCodPostal.TabIndex = 4;
             this.txtCodPostal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCodPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodPostal_KeyPress);
             // 
             // txtMorada
             // 
@@ -362,8 +372,10 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmNovoCliente";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ficha de Cliente";
+            this.Load += new System.EventHandler(this.frmNovoCliente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
