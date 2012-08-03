@@ -36,17 +36,19 @@ namespace Calendar
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            this.cliente = new Cliente();
             this.Close();
         }
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
-            string sql = string.Empty;
-            if (!txtProcesso.Text.Equals("") && txtNome.Text.Equals("") && txtApelidos.Text.Equals(""))
-            {
-                SqlParameter p = new SqlParameter("@n_cliente", Int32.Parse(txtProcesso.Text));
-                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente";
-            }
+            Cliente cli = new Cliente();
+            Cliente[] aux = cli.pesquisarClientes(chkBoxProcesso.Checked, chkBoxNome.Checked, chkBoxApelidos.Checked, cmbWhere.SelectedItem.ToString(), txtProcesso.Text, txtNome.Text, txtApelidos.Text);
+        }
+
+        private void frmPesquisaCliente_Load(object sender, EventArgs e)
+        {
+            cmbWhere.SelectedIndex = 0;
         }
     }
 }

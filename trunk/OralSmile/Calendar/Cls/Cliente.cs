@@ -431,6 +431,83 @@ namespace Calendar.Cls
         }
 
 
+        public Cliente[] pesquisarClientes(bool chk1, bool chk2, bool chk3, string combo, string txt1, string txt2, string txt3)
+        {
+            Cliente[] cliente = new Cliente[1];
+
+            string sql = string.Empty;
+            if (chk1 && !chk2 && !chk3)
+            {
+                SqlParameter p = new SqlParameter("@n_cliente", Int32.Parse(txt1));
+                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente";
+            }
+            else if (chk1 && chk2 && !chk3)
+            {
+                SqlParameter p = new SqlParameter("@n_cliente", Int32.Parse(txt1));
+                SqlParameter p1 = new SqlParameter("@nome", txt2);
+                if (combo.Equals("E"))
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente and nome like '@nome%'";
+                else
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente or nome like '@nome%'";
+            }
+            else if (chk1 && chk2 && chk3)
+            {
+                SqlParameter p = new SqlParameter("@n_cliente", Int32.Parse(txt1));
+                SqlParameter p1 = new SqlParameter("@nome", txt2);
+                SqlParameter p2 = new SqlParameter("@apelidos", txt3);
+                if (combo.Equals("E"))
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente and nome=@nome and apelidos=@apelidos";
+                else
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente or nome like '@nome%' or apelidos like '%@apelidos%'";
+            }
+            else if (chk1 && !chk2 && chk3)
+            {
+                SqlParameter p = new SqlParameter("@n_cliente", Int32.Parse(txt1));
+                SqlParameter p1 = new SqlParameter("@apelidos", txt3);
+                if (combo.Equals("E"))
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente and apelidos like '%@apelidos%'";
+                else
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente or apelidos like '%@apelidos%'";
+            }
+            else if (!chk1 && chk2 && chk3)
+            {
+                SqlParameter p = new SqlParameter("@nome", txt2);
+                SqlParameter p1 = new SqlParameter("@apelidos", txt3);
+                if (combo.Equals("E"))
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where nome=@nome and apelidos like '%@apelidos%'";
+                else
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where nome=@nome or apelidos like '%@apelidos%'";
+            }
+            else if (!chk1 && chk2 && !chk3)
+            {
+                SqlParameter p = new SqlParameter("@nome", txt2);
+                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where nome=@nome";
+            }
+            else
+            {
+                SqlParameter p = new SqlParameter("@apelidos", txt3);
+                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where apelidos=@apelidos";
+            }
+
+            DataBase db = new DataBase();
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter();
+
+            SqlDataReader dr = db.executaSQLParams(sql, param, false);
+
+            if (dr.HasRows)
+            {
+                cliente = new Cliente[dr.RecordsAffected];
+                int i = 0;
+                while (dr.Read())
+                {
+
+                }
+            }
+            return cliente;
+        }
+
+
         private int contarClientes()
         {
             DataBase db = new DataBase();
