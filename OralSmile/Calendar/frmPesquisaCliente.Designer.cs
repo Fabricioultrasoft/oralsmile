@@ -39,13 +39,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.chkBoxProcesso = new System.Windows.Forms.CheckBox();
-            this.chkBoxNome = new System.Windows.Forms.CheckBox();
-            this.chkBoxApelidos = new System.Windows.Forms.CheckBox();
-            this.idCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.n_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.apelidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,22 +71,19 @@
             this.dgClientes.AllowUserToResizeColumns = false;
             this.dgClientes.AllowUserToResizeRows = false;
             this.dgClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idCliente,
-            this.n_cliente,
-            this.nome,
-            this.apelidos});
-            this.dgClientes.Location = new System.Drawing.Point(12, 167);
+            this.dgClientes.Location = new System.Drawing.Point(12, 117);
             this.dgClientes.Name = "dgClientes";
-            this.dgClientes.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dgClientes.Size = new System.Drawing.Size(366, 243);
+            this.dgClientes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgClientes.Size = new System.Drawing.Size(506, 285);
             this.dgClientes.TabIndex = 4;
+            this.dgClientes.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgClientes_RowEnter);
             // 
             // btnPesquisar
             // 
-            this.btnPesquisar.Location = new System.Drawing.Point(303, 12);
+            this.btnPesquisar.Location = new System.Drawing.Point(369, 12);
             this.btnPesquisar.Name = "btnPesquisar";
-            this.btnPesquisar.Size = new System.Drawing.Size(75, 23);
+            this.btnPesquisar.Size = new System.Drawing.Size(149, 23);
             this.btnPesquisar.TabIndex = 5;
             this.btnPesquisar.Text = "Pesquisar";
             this.btnPesquisar.UseVisualStyleBackColor = true;
@@ -101,9 +91,9 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(303, 41);
+            this.btnCancelar.Location = new System.Drawing.Point(369, 41);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(149, 23);
             this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -156,70 +146,12 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Condição:";
             // 
-            // chkBoxProcesso
-            // 
-            this.chkBoxProcesso.AutoSize = true;
-            this.chkBoxProcesso.Location = new System.Drawing.Point(125, 14);
-            this.chkBoxProcesso.Name = "chkBoxProcesso";
-            this.chkBoxProcesso.Size = new System.Drawing.Size(15, 14);
-            this.chkBoxProcesso.TabIndex = 12;
-            this.chkBoxProcesso.UseVisualStyleBackColor = true;
-            // 
-            // chkBoxNome
-            // 
-            this.chkBoxNome.AutoSize = true;
-            this.chkBoxNome.Location = new System.Drawing.Point(244, 40);
-            this.chkBoxNome.Name = "chkBoxNome";
-            this.chkBoxNome.Size = new System.Drawing.Size(15, 14);
-            this.chkBoxNome.TabIndex = 13;
-            this.chkBoxNome.UseVisualStyleBackColor = true;
-            // 
-            // chkBoxApelidos
-            // 
-            this.chkBoxApelidos.AutoSize = true;
-            this.chkBoxApelidos.Location = new System.Drawing.Point(244, 66);
-            this.chkBoxApelidos.Name = "chkBoxApelidos";
-            this.chkBoxApelidos.Size = new System.Drawing.Size(15, 14);
-            this.chkBoxApelidos.TabIndex = 14;
-            this.chkBoxApelidos.UseVisualStyleBackColor = true;
-            // 
-            // idCliente
-            // 
-            this.idCliente.HeaderText = "ID Cliente";
-            this.idCliente.Name = "idCliente";
-            this.idCliente.ReadOnly = true;
-            this.idCliente.Visible = false;
-            // 
-            // n_cliente
-            // 
-            this.n_cliente.HeaderText = "Proc.";
-            this.n_cliente.Name = "n_cliente";
-            this.n_cliente.ReadOnly = true;
-            this.n_cliente.Width = 50;
-            // 
-            // nome
-            // 
-            this.nome.HeaderText = "Nome";
-            this.nome.Name = "nome";
-            this.nome.ReadOnly = true;
-            this.nome.Width = 125;
-            // 
-            // apelidos
-            // 
-            this.apelidos.HeaderText = "Apelidos";
-            this.apelidos.Name = "apelidos";
-            this.apelidos.ReadOnly = true;
-            this.apelidos.Width = 145;
-            // 
             // frmPesquisaCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(390, 422);
+            this.ClientSize = new System.Drawing.Size(530, 414);
             this.ControlBox = false;
-            this.Controls.Add(this.chkBoxApelidos);
-            this.Controls.Add(this.chkBoxNome);
-            this.Controls.Add(this.chkBoxProcesso);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -258,12 +190,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox chkBoxProcesso;
-        private System.Windows.Forms.CheckBox chkBoxNome;
-        private System.Windows.Forms.CheckBox chkBoxApelidos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idCliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn n_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn apelidos;
     }
 }

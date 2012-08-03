@@ -431,77 +431,101 @@ namespace Calendar.Cls
         }
 
 
-        public Cliente[] pesquisarClientes(bool chk1, bool chk2, bool chk3, string combo, string txt1, string txt2, string txt3)
+        public Cliente[] pesquisarClientes(string combo, string txt1, string txt2, string txt3)
         {
             Cliente[] cliente = new Cliente[1];
+            SqlParameter[] p = new SqlParameter[1];
 
             string sql = string.Empty;
-            if (chk1 && !chk2 && !chk3)
+            if (!txt1.Equals("") && txt2.Equals("") && txt3.Equals(""))
             {
-                SqlParameter p = new SqlParameter("@n_cliente", Int32.Parse(txt1));
-                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente";
+                p = new SqlParameter[1];
+                p[0] = new SqlParameter("@n_cliente", Int32.Parse(txt1));
+                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where n_cliente=@n_cliente order by 4";
             }
-            else if (chk1 && chk2 && !chk3)
+            else if (!txt1.Equals("") && !txt2.Equals("") && txt3.Equals(""))
             {
-                SqlParameter p = new SqlParameter("@n_cliente", Int32.Parse(txt1));
-                SqlParameter p1 = new SqlParameter("@nome", txt2);
+                p = new SqlParameter[2];
+                p[0] = new SqlParameter("@n_cliente", Int32.Parse(txt1));
+                p[1] = new SqlParameter("@nome", txt2);
                 if (combo.Equals("E"))
-                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente and nome like '@nome%'";
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where n_cliente=@n_cliente and nome like '%' + @nome + '%' order by 4";
                 else
-                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente or nome like '@nome%'";
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where n_cliente=@n_cliente or nome like '%' + @nome + '%' order by 4";
             }
-            else if (chk1 && chk2 && chk3)
+            else if (!txt1.Equals("") && !txt2.Equals("") && !txt3.Equals(""))
             {
-                SqlParameter p = new SqlParameter("@n_cliente", Int32.Parse(txt1));
-                SqlParameter p1 = new SqlParameter("@nome", txt2);
-                SqlParameter p2 = new SqlParameter("@apelidos", txt3);
+                p = new SqlParameter[3];
+                p[0] = new SqlParameter("@n_cliente", Int32.Parse(txt1));
+                p[1] = new SqlParameter("@nome", txt2);
+                p[2] = new SqlParameter("@apelidos", txt3);
                 if (combo.Equals("E"))
-                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente and nome=@nome and apelidos=@apelidos";
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where n_cliente=@n_cliente and nome like '%' + @nome + '%' and apelidos like '%' + @apelidos + '%' order by 4";
                 else
-                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente or nome like '@nome%' or apelidos like '%@apelidos%'";
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where n_cliente=@n_cliente or nome like '%' + @nome + '%' or apelidos like '%' + @apelidos + '%' order by 4";
             }
-            else if (chk1 && !chk2 && chk3)
+            else if (!txt1.Equals("") && txt2.Equals("") && !txt3.Equals(""))
             {
-                SqlParameter p = new SqlParameter("@n_cliente", Int32.Parse(txt1));
-                SqlParameter p1 = new SqlParameter("@apelidos", txt3);
+                p = new SqlParameter[2];
+                p[0] = new SqlParameter("@n_cliente", Int32.Parse(txt1));
+                p[1] = new SqlParameter("@apelidos", txt3);
                 if (combo.Equals("E"))
-                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente and apelidos like '%@apelidos%'";
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where n_cliente=@n_cliente and apelidos like '%' + @apelidos + '%' order by 4";
                 else
-                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where c_cliente=@n_cliente or apelidos like '%@apelidos%'";
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where n_cliente=@n_cliente or apelidos like '%' + @apelidos + '%' order by 4";
             }
-            else if (!chk1 && chk2 && chk3)
+            else if (txt1.Equals("") && !txt2.Equals("") && !txt3.Equals(""))
             {
-                SqlParameter p = new SqlParameter("@nome", txt2);
-                SqlParameter p1 = new SqlParameter("@apelidos", txt3);
+                p = new SqlParameter[2];
+                p[0] = new SqlParameter("@nome", txt2);
+                p[1] = new SqlParameter("@apelidos", txt3);
                 if (combo.Equals("E"))
-                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where nome=@nome and apelidos like '%@apelidos%'";
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where nome like '%' + @nome + '%' and apelidos like '%' + @apelidos + '%' order by 4";
                 else
-                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where nome=@nome or apelidos like '%@apelidos%'";
+                    sql = "select idCliente, nome, apelidos, n_cliente from Clientes where nome like '%' + @nome + '%' or apelidos like '%' + @apelidos + '%' order by 4";
             }
-            else if (!chk1 && chk2 && !chk3)
+            else if (txt1.Equals("") && !txt2.Equals("") && txt3.Equals(""))
             {
-                SqlParameter p = new SqlParameter("@nome", txt2);
-                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where nome=@nome";
+                p = new SqlParameter[1];
+                p[0] = new SqlParameter("@nome", txt2);
+                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where nome like '%' + @nome + '%' order by 4";
             }
-            else
+            else if (txt1.Equals("") && txt2.Equals("") && !txt3.Equals(""))
             {
-                SqlParameter p = new SqlParameter("@apelidos", txt3);
-                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where apelidos=@apelidos";
+                p = new SqlParameter[1];
+                p[0] = new SqlParameter("@apelidos", txt3);
+                sql = "select idCliente, nome, apelidos, n_cliente from Clientes where apelidos like '%' + @apelidos + '%' order by 4";
             }
 
-            DataBase db = new DataBase();
-            SqlParameter[] param = new SqlParameter[1];
-            param[0] = new SqlParameter();
-
-            SqlDataReader dr = db.executaSQLParams(sql, param, false);
-
-            if (dr.HasRows)
+            if (!sql.Equals(string.Empty))
             {
-                cliente = new Cliente[dr.RecordsAffected];
-                int i = 0;
-                while (dr.Read())
+                DataBase db = new DataBase();
+                SqlDataReader dr = db.executaSQLParams(sql, p, true);
+
+                int contador = 0;
+                if (dr.HasRows)
                 {
+                    while (dr.Read())
+                        contador++;
+                }
+                dr.Close();
 
+                dr = db.executaSQLParams(sql, p, true);
+
+
+                if (dr.HasRows)
+                {
+                    cliente = new Cliente[contador];
+                    int i = 0;
+                    while (dr.Read())
+                    {
+                        cliente[i] = new Cliente();
+                        cliente[i].IdCliente = Int32.Parse(dr[0].ToString());
+                        cliente[i].Nome = dr[1].ToString();
+                        cliente[i].Apelidos = dr[2].ToString();
+                        cliente[i].NumCliente = Int32.Parse(dr[3].ToString());
+                        i++;
+                    }
                 }
             }
             return cliente;
