@@ -222,6 +222,47 @@ namespace Calendar.Cls
         }
 
 
+        public Marcacao saberMarcacao(int idMarcacao)
+        {
+            Marcacao aux = new Marcacao();
+
+            SqlParameter[] p = new SqlParameter[6];
+            p[0] = new SqlParameter("@idMarcacao", idMarcacao);
+            
+            p[1] = new SqlParameter();
+            p[1].ParameterName = "@datahora_inicio";
+            p[1].Direction = System.Data.ParameterDirection.Output;
+
+            p[2] = new SqlParameter();
+            p[2].ParameterName = "@datahora_fim";
+            p[2].Direction = System.Data.ParameterDirection.Output;
+
+            p[3] = new SqlParameter();
+            p[3].ParameterName = "@observacoes";
+            p[3].Direction = System.Data.ParameterDirection.Output;
+
+            p[4] = new SqlParameter();
+            p[4].ParameterName = "@idCliente";
+            p[4].Direction = System.Data.ParameterDirection.Output;
+
+            p[5] = new SqlParameter();
+            p[5].ParameterName = "@idTipoTratamento";
+            p[5].Direction = System.Data.ParameterDirection.Output;
+
+            DataBase db = new DataBase();
+
+            db.executaSQLTrasact("selectMarcacao", p, true, out p);
+
+            aux.DataHoraInicio = DateTime.Parse(p[0].Value.ToString());
+            aux.DataHoraFim = DateTime.Parse(p[1].Value.ToString());
+            aux.observacores = p[2].Value.ToString();
+            aux.IdCliente = Int32.Parse(p[3].Value.ToString());
+            aux.IdTipoTratamento = Int32.Parse(p[4].Value.ToString());
+
+            return aux;
+        }
+
+
         public Marcacao[] todasMarcacoes()
         {
             Marcacao[] marca = new Marcacao[contarMarcacoes()];

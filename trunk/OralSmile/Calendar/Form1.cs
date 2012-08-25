@@ -29,6 +29,11 @@ namespace Calendar
             comboBox1.SelectedIndex = 1;
             dayView1.HalfHourHeight = trackBar1.Value;
 
+            carregarMarcacoes();
+        }
+
+        private void carregarMarcacoes()
+        {
             //Carregamento das marcações
             Marcacao marca = new Marcacao();
             Marcacao[] aux = marca.todasMarcacoes();
@@ -214,6 +219,54 @@ namespace Calendar
         {
             frmNovoCliente form = new frmNovoCliente();
             form.ShowDialog();
+        }
+
+        private void dayView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (dayView1.SelectedAppointment != null)
+            {
+                frmMarcacao marca = new frmMarcacao();
+                marca.Appointment.DataHoraFim = dayView1.SelectedAppointment.EndDate;
+                marca.Appointment.DataHoraInicio = dayView1.SelectedAppointment.StartDate;
+                marca.Appointment.Observacoes = dayView1.SelectedAppointment.Obervacoes;
+                marca.Appointment.IdMarcacao = dayView1.SelectedAppointment.IdMarcacao;
+
+                //Saber idCliente e idTipoTratamento desde Marcação
+                Marcacao aux = new Marcacao();
+                aux = aux.saberMarcacao(marca.Appointment.IdMarcacao);
+
+                marca.Appointment.IdCliente = aux.IdCliente;
+                marca.Appointment.IdTipoTratamento = aux.IdTipoTratamento;
+
+                marca.ShowDialog();
+
+                if (marca.Appointment.IdMarcacao != -1)
+                {
+                    marca.Appointment.editarMarcacao(marca.Appointment.IdMarcacao, marca.Appointment.IdCliente, marca.Appointment.DataHoraInicio, marca.Appointment.DataHoraFim, marca.Appointment.IdTipoTratamento, marca.Appointment.Observacoes);
+
+                    m_Appointments.Remove(dayView1.SelectedAppointment);
+
+                    Appointment app = new Appointment();
+                    app.IdMarcacao = marca.Appointment.IdMarcacao;
+                    app.StartDate = marca.Appointment.DataHoraInicio;
+                    app.EndDate = marca.Appointment.DataHoraFim;
+                    app.Obervacoes = marca.Appointment.Observacoes;
+
+                    Cliente cli = new Cliente();
+                    cli = cli.pesquisaCliente(marca.Appointment.IdCliente);
+
+                    TipoTratamento tipo = new TipoTratamento();
+                    tipo = tipo.pesquisarTipo(marca.Appointment.IdTipoTratamento);
+
+                    if (marca.Appointment.Observacoes.Equals(string.Empty))
+                        app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
+                    else
+                        app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + marca.Appointment.Observacoes;
+
+                    m_Appointments.Add(app);
+                    dayView1.Invalidate();
+                }
+            }
         }
     }
 }

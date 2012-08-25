@@ -205,6 +205,7 @@
             this.btnHistorico.TabIndex = 15;
             this.btnHistorico.Text = "Histórico Tratamentos";
             this.btnHistorico.UseVisualStyleBackColor = true;
+            this.btnHistorico.Click += new System.EventHandler(this.btnHistorico_Click);
             // 
             // label1
             // 
