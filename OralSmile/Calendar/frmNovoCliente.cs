@@ -93,7 +93,7 @@ namespace Calendar
 
         private void soNumeros(KeyPressEventArgs e)
         {
-            if ((int)e.KeyChar < 48 || (int)e.KeyChar > 57) //verifica se a tecla pressionada é um algarismo
+            if (((int)e.KeyChar < 48 || (int)e.KeyChar > 57) && (int)e.KeyChar != 8) //verifica se a tecla pressionada é um algarismo ou tecla backspace
                 e.Handled = true;
         }
 
@@ -142,6 +142,11 @@ namespace Calendar
             }
             else
                 limparCampos();
+        }
+
+        private void btnHistorico_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

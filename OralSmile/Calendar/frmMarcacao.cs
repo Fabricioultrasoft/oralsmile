@@ -72,6 +72,29 @@ namespace Calendar
 
             //Carregar ComboBox Tipos de Tratamento
             carregarTiposTratamento();
+
+            if (marcacao.IdMarcacao != -1)
+            {
+                txtObs.Text = marcacao.Observacoes;
+
+                for (int i = 0; i < cmbCliente.Items.Count; i++)
+                {
+                    if (marcacao.IdCliente == (cmbCliente.Items[i] as Item).ID)
+                    {
+                        cmbCliente.SelectedIndex = i;
+                        break;
+                    }
+                }
+
+                for (int j = 0; j < cmbIdTipoTratamento.Items.Count; j++)
+                {
+                    if (marcacao.IdTipoTratamento == (cmbIdTipoTratamento.Items[j] as Item).ID)
+                    {
+                        cmbIdTipoTratamento.SelectedIndex = j;
+                        break;
+                    }
+                }
+            }
         }
 
 

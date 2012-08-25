@@ -670,7 +670,9 @@ namespace Calendar
             if (!cancel)
             {
                 if (selectedAppointment != null)
+                {
                     selectedAppointment.Title = editbox.Text;
+                }
             }
             else
             {
