@@ -101,6 +101,7 @@ namespace Calendar
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "[Pointed date]";
+            this.label2.Visible = false;
             // 
             // label3
             // 
@@ -110,6 +111,7 @@ namespace Calendar
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "[selection]";
+            this.label3.Visible = false;
             // 
             // button2
             // 
@@ -288,6 +290,7 @@ namespace Calendar
             this.btnClientes.Size = new System.Drawing.Size(84, 23);
             this.btnClientes.TabIndex = 24;
             this.btnClientes.Text = "Clientes";
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // Form1
             // 
