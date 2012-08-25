@@ -43,6 +43,7 @@
             this.txtDataFinal = new System.Windows.Forms.MaskedTextBox();
             this.txtHoraInicio = new System.Windows.Forms.MaskedTextBox();
             this.txtHoraFinal = new System.Windows.Forms.MaskedTextBox();
+            this.btnHistorico = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtObs
@@ -188,11 +189,21 @@
             this.txtHoraFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtHoraFinal.ValidatingType = typeof(System.DateTime);
             // 
+            // btnHistorico
+            // 
+            this.btnHistorico.Location = new System.Drawing.Point(236, 184);
+            this.btnHistorico.Name = "btnHistorico";
+            this.btnHistorico.Size = new System.Drawing.Size(188, 29);
+            this.btnHistorico.TabIndex = 13;
+            this.btnHistorico.Text = "Histórico Marcações";
+            this.btnHistorico.UseVisualStyleBackColor = true;
+            // 
             // frmMarcacao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 222);
+            this.ClientSize = new System.Drawing.Size(669, 232);
+            this.Controls.Add(this.btnHistorico);
             this.Controls.Add(this.txtHoraFinal);
             this.Controls.Add(this.txtHoraInicio);
             this.Controls.Add(this.txtDataFinal);
@@ -241,5 +252,6 @@
         private System.Windows.Forms.MaskedTextBox txtDataFinal;
         private System.Windows.Forms.MaskedTextBox txtHoraInicio;
         private System.Windows.Forms.MaskedTextBox txtHoraFinal;
+        private System.Windows.Forms.Button btnHistorico;
     }
 }

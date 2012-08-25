@@ -411,7 +411,7 @@ namespace Calendar.Cls
 
             p[0] = new SqlParameter();
 
-            SqlDataReader dr = db.executaSQLParams("Select idCliente, nome, apelidos from Clientes;", p, false);
+            SqlDataReader dr = db.executaSQLParams("Select idCliente, nome, apelidos, n_cliente, localidade, morada from Clientes order by 4, 2, 3;", p, false);
 
 
             if (dr.HasRows)
@@ -423,6 +423,9 @@ namespace Calendar.Cls
                     cliente[x].IdCliente = Int32.Parse(dr[0].ToString());
                     cliente[x].Nome = dr[1].ToString();
                     cliente[x].Apelidos = dr[2].ToString();
+                    cliente[x].NumCliente = Int32.Parse(dr[3].ToString());
+                    cliente[x].Localidade = dr[4].ToString();
+                    cliente[x].Morada = dr[5].ToString();
                     x++;
                 }
             }

@@ -20,24 +20,78 @@ namespace Calendar
             cli = new Cliente();
         }
 
+        public Cliente Cliente
+        {
+            set
+            {
+                this.cli = value;
+            }
+            get
+            {
+                return this.cli;
+            }
+        }
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            cli.Nome = txtNome.Text;
-            cli.Apelidos = txtApelidos.Text;
-            cli.Morada = txtMorada.Text;
-            cli.Localidade = txtLocalidade.Text;
-            cli.CodigoPostal = Int32.Parse(txtCodPostal.Text);
-            cli.CodigoPostal_3Digitos = Int32.Parse(txtCodPostal_1.Text);
-            cli.Telefone = Int32.Parse(txtTelefone.Text);
-            cli.Telefone = Int32.Parse(txtTelemovel.Text);
-            cli.BI = long.Parse(txtBI.Text);
-            cli.NumContribuiente = long.Parse(txtContribuinte.Text);
-            cli.NumUtente = long.Parse(txtNumUtente.Text);
-            cli.Seguro = txtSeguro.Text;
-            cli.Profissao = txtProcesso.Text;
-
             try
             {
+                cli.Nome = txtNome.Text;
+                cli.Apelidos = txtApelidos.Text;
+                cli.Morada = txtMorada.Text;
+                cli.Localidade = txtLocalidade.Text;
+
+                if (!txtCodPostal.Text.Equals(string.Empty))
+                    cli.CodigoPostal = Int32.Parse(txtCodPostal.Text);
+                else
+                    cli.CodigoPostal = 0;
+
+
+                if (!txtCodPostal_1.Text.Equals(string.Empty))
+                    cli.CodigoPostal_3Digitos = Int32.Parse(txtCodPostal_1.Text);
+                else
+                    cli.CodigoPostal_3Digitos = 0;
+
+
+                if (!txtTelefone.Text.Equals(string.Empty))
+                    cli.Telefone = Int32.Parse(txtTelefone.Text);
+                else
+                    cli.Telefone = 0;
+
+
+                if (!txtTelemovel.Text.Equals(string.Empty))
+                    cli.Telemovel = Int32.Parse(txtTelemovel.Text);
+                else
+                    cli.Telemovel = 0;
+
+
+                if (!txtBI.Text.Equals(string.Empty))
+                    cli.BI = long.Parse(txtBI.Text);
+                else
+                    cli.BI = 0;
+
+
+                if (!txtContribuinte.Text.Equals(string.Empty))
+                    cli.NumContribuiente = long.Parse(txtContribuinte.Text);
+                else
+                    cli.NumContribuiente = 0;
+
+
+                if (!txtNumUtente.Text.Equals(string.Empty))
+                    cli.NumUtente = long.Parse(txtNumUtente.Text);
+                else
+                    cli.NumUtente = 0;
+
+
+                cli.Seguro = txtSeguro.Text;
+                cli.Profissao = txtProfissao.Text;
+
+
+                if (!txtProcesso.Text.Equals(string.Empty))
+                    cli.NumCliente = long.Parse(txtProcesso.Text);
+                else
+                    cli.NumCliente = 0;
+
                 if (cli.IdCliente == -1)
                 {
                     cli.novoCliente();
@@ -52,7 +106,11 @@ namespace Calendar
                     }
                 }
                 else
+                {
                     cli.editarCliente();
+                    MessageBox.Show("Dados actualizados.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
             }
             catch (Exception)
             {
@@ -126,19 +184,43 @@ namespace Calendar
         {
             if (cli.IdCliente != -1)
             {
+                //carregar dados
+                int idAntigo = cli.IdCliente;
+                cli = cli.pesquisaCliente(cli.IdCliente);
+
+                cli.IdCliente = idAntigo;
                 txtNome.Text = cli.Nome;
                 txtApelidos.Text = cli.Apelidos;
                 txtMorada.Text = cli.Morada;
                 txtLocalidade.Text = cli.Localidade;
-                txtCodPostal.Text = cli.CodigoPostal.ToString();
-                txtCodPostal_1.Text = cli.CodigoPostal_3Digitos.ToString();
-                txtTelefone.Text = cli.Telefone.ToString();
-                txtTelemovel.Text = cli.Telefone.ToString();
-                txtBI.Text = cli.BI.ToString();
-                txtContribuinte.Text = cli.NumContribuiente.ToString();
-                txtNumUtente.Text = cli.NumUtente.ToString();
+
+                if(cli.CodigoPostal != 0)
+                    txtCodPostal.Text = cli.CodigoPostal.ToString();
+
+                if(cli.CodigoPostal_3Digitos != 0)
+                    txtCodPostal_1.Text = cli.CodigoPostal_3Digitos.ToString();
+
+                if(cli.Telefone != 0)
+                    txtTelefone.Text = cli.Telefone.ToString();
+
+                if(cli.Telemovel != 0)
+                    txtTelemovel.Text = cli.Telemovel.ToString();
+
+                if(cli.BI != 0)
+                    txtBI.Text = cli.BI.ToString();
+
+                if(cli.NumContribuiente != 0)
+                    txtContribuinte.Text = cli.NumContribuiente.ToString();
+                
+                if(cli.NumUtente != 0)
+                    txtNumUtente.Text = cli.NumUtente.ToString();
+
                 txtSeguro.Text = cli.Seguro;
-                txtProcesso.Text = cli.Profissao;
+
+                if(cli.NumCliente != 0)
+                    txtProcesso.Text = cli.NumCliente.ToString();
+
+                txtProfissao.Text = cli.Profissao;
             }
             else
                 limparCampos();

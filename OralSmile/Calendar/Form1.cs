@@ -268,5 +268,11 @@ namespace Calendar
                 }
             }
         }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            frmClientes cli = new frmClientes();
+            cli.ShowDialog();
+        }
     }
 }
