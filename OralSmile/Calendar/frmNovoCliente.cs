@@ -14,11 +14,25 @@ namespace Calendar
     {
         private Cliente cli;
         private int linha;
+        private bool novo;
 
         public frmNovoCliente()
         {
             InitializeComponent();
             cli = new Cliente();
+            this.novo = false;
+        }
+
+        public bool Novo
+        {
+            set
+            {
+                this.novo = value;
+            }
+            get
+            {
+                return this.novo;
+            }
         }
 
         public Cliente Cliente
@@ -185,6 +199,11 @@ namespace Calendar
         {
             this.Height = 295;
             linha = -1;
+
+            if (novo)
+                btnHistorico.Visible = false;
+            else
+                btnHistorico.Visible = true;
 
             if (cli.IdCliente != -1)
             {
