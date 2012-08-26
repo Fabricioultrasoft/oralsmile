@@ -13,6 +13,7 @@ namespace Calendar
     public partial class frmNovoCliente : Form
     {
         private Cliente cli;
+        private int linha;
 
         public frmNovoCliente()
         {
@@ -183,6 +184,7 @@ namespace Calendar
         private void frmNovoCliente_Load(object sender, EventArgs e)
         {
             this.Height = 295;
+            linha = -1;
 
             if (cli.IdCliente != -1)
             {
@@ -236,7 +238,7 @@ namespace Calendar
                 {
                     //Carregar Datagrid
                     carregarHistorico();
-
+                    dgClientes.ClearSelection();
                     this.Height = 532;
                 }
             }
@@ -320,24 +322,15 @@ namespace Calendar
             dgClientes.MultiSelect = false;
         }
 
-        private void dgClientes_SelectionChanged(object sender, EventArgs e)
-        {
-            /*if (dgClientes.SelectedRows.Count > 0 && dgClientes.CurrentRow.Index > 0)
-            {
-                //Ir a Marcação
-                frmMarcacao marca = new frmMarcacao();
-                marca.Appointment.IdMarcacao = Int32.Parse(dgClientes.Rows[dgClientes.CurrentRow.Index].Cells[0].Value.ToString());
-                marca.ShowDialog();
-                carregarHistorico();
-            }*/
-        }
 
         private void dgClientes_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgClientes.SelectedRows.Count > 0 && e.RowIndex > 0)
+            linha = e.RowIndex;
+            if (dgClientes.SelectedRows.Count > 0 && linha > -1)
             {
                 //Ir a Marcação
                 frmMarcacao marca = new frmMarcacao();
+                marca.Leitura = true;
                 marca.Appointment.IdMarcacao = Int32.Parse(dgClientes.Rows[e.RowIndex].Cells[0].Value.ToString());
                 marca.Appointment.IdCliente = cli.IdCliente;
 
@@ -352,7 +345,8 @@ namespace Calendar
                 marca.Appointment.DataHoraFim = DateTime.Parse(dgClientes.Rows[e.RowIndex].Cells[2].Value.ToString());
                 marca.Appointment.Observacoes = dgClientes.Rows[e.RowIndex].Cells[4].Value.ToString();
                 marca.ShowDialog();
-                //carregarHistorico();
+                
+                dgClientes.ClearSelection();
             }
         }
     }

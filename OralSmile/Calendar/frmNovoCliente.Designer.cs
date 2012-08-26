@@ -349,7 +349,6 @@
             this.dgClientes.Size = new System.Drawing.Size(496, 231);
             this.dgClientes.TabIndex = 31;
             this.dgClientes.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgClientes_RowEnter);
-            this.dgClientes.SelectionChanged += new System.EventHandler(this.dgClientes_SelectionChanged);
             // 
             // frmNovoCliente
             // 

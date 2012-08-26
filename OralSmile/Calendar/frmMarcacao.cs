@@ -13,13 +13,27 @@ namespace Calendar
     public partial class frmMarcacao : Form
     {
         private Marcacao marcacao;
+        private bool leitura;
 
         public frmMarcacao()
         {
             //Inicialização do objecto Marcação
             this.marcacao = new Marcacao();
+            this.leitura = false;
 
             InitializeComponent();
+        }
+
+        public bool Leitura
+        {
+            set
+            {
+                this.leitura = value;
+            }
+            get
+            {
+                return this.leitura;
+            }
         }
 
         public Marcacao Appointment
@@ -96,6 +110,37 @@ namespace Calendar
                         break;
                     }
                 }
+            }
+
+            if (this.leitura)
+            {
+                btnOK.Visible = false;
+                btnHistorico.Visible = false;
+                txtObs.ReadOnly = true;
+                txtDataFinal.ReadOnly = true;
+                txtDataInicio.ReadOnly = true;
+                txtHoraInicio.ReadOnly = true;
+                txtHoraFinal.ReadOnly = true;
+                cmbCliente.Enabled = false;
+                cmbIdTipoTratamento.Enabled = false;
+
+                txtObs.BackColor = Color.White;
+                txtDataFinal.BackColor = Color.White;
+                txtDataInicio.BackColor = Color.White;
+                txtHoraFinal.BackColor = Color.White;
+                txtHoraInicio.BackColor = Color.White;
+            }
+            else
+            {
+                btnOK.Visible = true;
+                btnHistorico.Visible = true;
+                txtObs.ReadOnly = false;
+                txtDataFinal.ReadOnly = false;
+                txtDataInicio.ReadOnly = false;
+                txtHoraInicio.ReadOnly = false;
+                txtHoraFinal.ReadOnly = false;
+                cmbCliente.Enabled = true;
+                cmbIdTipoTratamento.Enabled = true;
             }
         }
 
