@@ -218,6 +218,7 @@ namespace Calendar
         private void btnNovoCliente_Click(object sender, EventArgs e)
         {
             frmNovoCliente form = new frmNovoCliente();
+            form.Novo = true;
             form.ShowDialog();
         }
 
