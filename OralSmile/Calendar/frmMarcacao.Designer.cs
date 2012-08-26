@@ -44,6 +44,8 @@
             this.txtHoraInicio = new System.Windows.Forms.MaskedTextBox();
             this.txtHoraFinal = new System.Windows.Forms.MaskedTextBox();
             this.btnHistorico = new System.Windows.Forms.Button();
+            this.dgClientes = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).BeginInit();
             this.SuspendLayout();
             // 
             // txtObs
@@ -197,12 +199,28 @@
             this.btnHistorico.TabIndex = 13;
             this.btnHistorico.Text = "Histórico Marcações";
             this.btnHistorico.UseVisualStyleBackColor = true;
+            this.btnHistorico.Click += new System.EventHandler(this.btnHistorico_Click);
+            // 
+            // dgClientes
+            // 
+            this.dgClientes.AllowUserToAddRows = false;
+            this.dgClientes.AllowUserToDeleteRows = false;
+            this.dgClientes.AllowUserToResizeColumns = false;
+            this.dgClientes.AllowUserToResizeRows = false;
+            this.dgClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgClientes.Location = new System.Drawing.Point(15, 229);
+            this.dgClientes.Name = "dgClientes";
+            this.dgClientes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgClientes.Size = new System.Drawing.Size(632, 231);
+            this.dgClientes.TabIndex = 14;
             // 
             // frmMarcacao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 232);
+            this.ClientSize = new System.Drawing.Size(669, 472);
+            this.Controls.Add(this.dgClientes);
             this.Controls.Add(this.btnHistorico);
             this.Controls.Add(this.txtHoraFinal);
             this.Controls.Add(this.txtHoraInicio);
@@ -221,15 +239,16 @@
             this.Controls.Add(this.txtObs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(675, 260);
+            this.MaximumSize = new System.Drawing.Size(675, 500);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(675, 260);
+            this.MinimumSize = new System.Drawing.Size(675, 230);
             this.Name = "frmMarcacao";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Marcações";
             this.Load += new System.EventHandler(this.frmMarcacao_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,5 +272,6 @@
         private System.Windows.Forms.MaskedTextBox txtHoraInicio;
         private System.Windows.Forms.MaskedTextBox txtHoraFinal;
         private System.Windows.Forms.Button btnHistorico;
+        private System.Windows.Forms.DataGridView dgClientes;
     }
 }

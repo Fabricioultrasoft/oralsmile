@@ -58,6 +58,8 @@ namespace Calendar
 
         private void frmMarcacao_Load(object sender, EventArgs e)
         {
+            this.Height = 250;
+
             if (!marcacao.DataHoraInicio.ToShortDateString().Equals("01-01-0001"))
             {
                 txtDataInicio.Text = marcacao.DataHoraInicio.ToShortDateString();
@@ -161,6 +163,22 @@ namespace Calendar
             }
             else
                 cmbCliente.SelectedIndex = 0;
+        }
+
+        private void btnHistorico_Click(object sender, EventArgs e)
+        {
+            if (this.Height == 250)
+            {
+                //Carregar Marcações
+                Marcacao[] marca;
+                Marcacao aux = Marcacao();
+                //marca = aux.
+
+                this.Height = 500;
+            }
+            else
+                this.Height = 250;
+
         }
     }
 
