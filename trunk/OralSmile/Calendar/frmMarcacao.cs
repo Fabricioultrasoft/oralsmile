@@ -169,17 +169,96 @@ namespace Calendar
         {
             if (this.Height == 250)
             {
-                //Carregar Marcações
-                Marcacao[] marca;
-                Marcacao aux = Marcacao();
-                //marca = aux.
+                if (cmbCliente.SelectedIndex > 0)
+                {
+                    //Carregar Marcações
+                    Marcacao[] marca;
+                    Marcacao aux = new Marcacao();
+                    marca = aux.saberMarcacaoCliente(((Item)cmbCliente.Items[cmbCliente.SelectedIndex]).ID);
 
-                this.Height = 500;
+                    //Carregar Datagrid
+                    carregarHistorico(marca);
+
+                    this.Height = 500;
+                }
             }
             else
                 this.Height = 250;
 
         }
-    }
 
+        private void carregarHistorico(Marcacao[] aux)
+        {
+            //Preencher Datagrid
+            DataTable tabela = new DataTable("Cli");
+            tabela.Columns.Add("idMarcacao");
+            tabela.Columns.Add("datahora_inicio");
+            //tabela.Columns.Add("datahora_fim");
+            tabela.Columns.Add("tipoTratamento");
+            tabela.Columns.Add("Observacoes");
+
+            DataRow row;
+            DataView view;
+
+            if (aux[0] != null)
+            {
+                // Create new DataRow objects and add to DataTable.    
+                for (int i = 0; i < aux.Length; i++)
+                {
+                    row = tabela.NewRow();
+                    row["idMarcacao"] = aux[i].IdMarcacao.ToString();
+                    row["datahora_inicio"] = aux[i].DataHoraInicio.ToShortDateString();
+                    //row["datahora_fim"] = aux[i].DataHoraFim.ToShortDateString();
+
+                    //Descrição idTipoTratamento
+                    TipoTratamento tipo = new TipoTratamento();
+                    tipo = tipo.pesquisarTipo(aux[i].IdTipoTratamento);
+                    row["tipoTratamento"] = tipo.Descricao;
+                    row["observacoes"] = aux[i].Observacoes;
+                    tabela.Rows.Add(row);
+                }
+            }
+
+            // Create a DataView using the DataTable.
+            view = new DataView(tabela);
+
+            //BindingSource to sync DataTable and DataGridView
+            BindingSource bSource = new BindingSource();
+
+            //set the BindingSource DataSource
+            bSource.DataSource = view;
+
+            //set the DataGridView DataSource
+            dgClientes.DataSource = bSource;
+
+            dgClientes.Columns["idMarcacao"].Visible = false;
+
+            dgClientes.Columns["idMarcacao"].HeaderText = "idMarcacao";
+            dgClientes.Columns["idMarcacao"].Width = 40;
+            dgClientes.Columns["idMarcacao"].ReadOnly = true;
+
+            dgClientes.Columns["datahora_inicio"].HeaderText = "Data";
+            dgClientes.Columns["datahora_inicio"].Width = 70;
+            dgClientes.Columns["datahora_inicio"].ReadOnly = true;
+
+            //dgClientes.Columns["datahora_fim"].HeaderText = "Data Fim";
+            //dgClientes.Columns["datahora_fim"].Width = 225;
+            //dgClientes.Columns["datahora_fim"].ReadOnly = true;
+
+            dgClientes.Columns["tipoTratamento"].HeaderText = "Tipo Tratamento";
+            dgClientes.Columns["tipoTratamento"].Width = 100;
+            dgClientes.Columns["tipoTratamento"].ReadOnly = true;
+
+            dgClientes.Columns["observacoes"].HeaderText = "Observações";
+            dgClientes.Columns["observacoes"].Width = 400;
+            dgClientes.Columns["observacoes"].ReadOnly = true;
+
+            dgClientes.MultiSelect = false;
+        }
+
+        private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.Height = 250;
+        }
+    }
 }

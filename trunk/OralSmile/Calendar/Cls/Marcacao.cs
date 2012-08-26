@@ -263,6 +263,48 @@ namespace Calendar.Cls
         }
 
 
+        public Marcacao[] saberMarcacaoCliente(int idCliente)
+        {
+            Marcacao[] marca = new Marcacao[contarMarcacoesCliente(idCliente)];
+            DataBase db = new DataBase();
+
+            SqlParameter[] p = new SqlParameter[1];
+
+            p[0] = new SqlParameter("@idCliente", idCliente);
+
+            SqlDataReader dr = db.executaSQLParams("Select idMarcacao, datahora_inicio, datahora_fim, observacoes, idTipoTratamento from Marcacoes where idCliente=@idCliente order by 2;", p, true);
+
+            if (dr.HasRows)
+            {
+                int x = 0;
+                while (dr.Read())
+                {
+                    marca[x] = new Marcacao(Int32.Parse(dr[0].ToString()), idCliente, Int32.Parse(dr[4].ToString()), DateTime.Parse(dr[1].ToString()), DateTime.Parse(dr[2].ToString()), dr[3].ToString());
+                    x++;
+                }
+            }
+
+            return marca;
+        }
+
+
+        private int contarMarcacoesCliente(int id)
+        {
+            DataBase db = new DataBase();
+            SqlParameter[] p = new SqlParameter[1];
+            p[0] = new SqlParameter("@idCliente", id);
+
+            SqlDataReader dr = db.executaSQLParams("select count(*) from Marcacoes where idCliente=@idCliente;", p, true);
+
+            if (dr.HasRows)
+            {
+                dr.Read();
+                return Int32.Parse(dr[0].ToString());
+            }
+            return -1;
+        }
+
+
         public Marcacao[] todasMarcacoes()
         {
             Marcacao[] marca = new Marcacao[contarMarcacoes()];
