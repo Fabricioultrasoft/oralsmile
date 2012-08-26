@@ -70,6 +70,26 @@ namespace Calendar.Cls
         }
 
 
+        public TipoTratamento pesquisarTipo(string descricao)
+        {
+            TipoTratamento aux = new TipoTratamento();
+
+            SqlParameter[] p = new SqlParameter[2];
+            p[0] = new SqlParameter("@descricao", descricao);
+            p[1] = new SqlParameter();
+            p[1].ParameterName = "@idTipo";
+            p[1].Direction = System.Data.ParameterDirection.Output;
+
+            DataBase db = new DataBase();
+
+            db.executaSQLTrasact("selectTipoDescricao", p, true, out p);
+
+            aux.IdTipoTratamento = Int32.Parse(p[0].Value.ToString());
+
+            return aux;
+        }
+
+
         public TipoTratamento[] todosTipos()
         {
             TipoTratamento[] tipos = new TipoTratamento[contarTipos()];

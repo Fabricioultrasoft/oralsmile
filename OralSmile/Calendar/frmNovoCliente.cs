@@ -182,6 +182,8 @@ namespace Calendar
 
         private void frmNovoCliente_Load(object sender, EventArgs e)
         {
+            this.Height = 295;
+
             if (cli.IdCliente != -1)
             {
                 //carregar dados
@@ -228,7 +230,130 @@ namespace Calendar
 
         private void btnHistorico_Click(object sender, EventArgs e)
         {
+            if (this.Height == 295)
+            {
+                if (cli.IdCliente != -1)
+                {
+                    //Carregar Datagrid
+                    carregarHistorico();
 
+                    this.Height = 532;
+                }
+            }
+            else
+                this.Height = 295;
+        }
+
+
+        private void carregarHistorico()
+        {
+            //Carregar Marcações
+            Marcacao[] aux;
+            Marcacao marca = new Marcacao();
+            aux = marca.saberMarcacaoCliente(cli.IdCliente);
+
+            //Preencher Datagrid
+            DataTable tabela = new DataTable("Cli");
+            tabela.Columns.Add("idMarcacao");
+            tabela.Columns.Add("datahora_inicio");
+            tabela.Columns.Add("datahora_fim");
+            tabela.Columns.Add("tipoTratamento");
+            tabela.Columns.Add("Observacoes");
+
+            DataRow row;
+            DataView view;
+
+            if (aux != null)
+            {
+                // Create new DataRow objects and add to DataTable.    
+                for (int i = 0; i < aux.Length; i++)
+                {
+                    row = tabela.NewRow();
+                    row["idMarcacao"] = aux[i].IdMarcacao.ToString();
+                    row["datahora_inicio"] = aux[i].DataHoraInicio.ToShortDateString();
+                    row["datahora_fim"] = aux[i].DataHoraFim;
+
+                    //Descrição idTipoTratamento
+                    TipoTratamento tipo = new TipoTratamento();
+                    tipo = tipo.pesquisarTipo(aux[i].IdTipoTratamento);
+                    row["tipoTratamento"] = tipo.Descricao;
+                    row["observacoes"] = aux[i].Observacoes;
+                    tabela.Rows.Add(row);
+                }
+            }
+
+            // Create a DataView using the DataTable.
+            view = new DataView(tabela);
+
+            //BindingSource to sync DataTable and DataGridView
+            BindingSource bSource = new BindingSource();
+
+            //set the BindingSource DataSource
+            bSource.DataSource = view;
+
+            //set the DataGridView DataSource
+            dgClientes.DataSource = bSource;
+
+            dgClientes.Columns["idMarcacao"].Visible = false;
+
+            dgClientes.Columns["idMarcacao"].HeaderText = "idMarcacao";
+            dgClientes.Columns["idMarcacao"].Width = 40;
+            dgClientes.Columns["idMarcacao"].ReadOnly = true;
+
+            dgClientes.Columns["datahora_inicio"].HeaderText = "Data";
+            dgClientes.Columns["datahora_inicio"].Width = 70;
+            dgClientes.Columns["datahora_inicio"].ReadOnly = true;
+
+            dgClientes.Columns["datahora_fim"].Visible = false;
+            dgClientes.Columns["datahora_fim"].HeaderText = "Data Fim";
+            dgClientes.Columns["datahora_fim"].Width = 70;
+            dgClientes.Columns["datahora_fim"].ReadOnly = true;
+
+            dgClientes.Columns["tipoTratamento"].HeaderText = "Tipo Tratamento";
+            dgClientes.Columns["tipoTratamento"].Width = 80;
+            dgClientes.Columns["tipoTratamento"].ReadOnly = true;
+
+            dgClientes.Columns["observacoes"].HeaderText = "Observações";
+            dgClientes.Columns["observacoes"].Width = 300;
+            dgClientes.Columns["observacoes"].ReadOnly = true;
+
+            dgClientes.MultiSelect = false;
+        }
+
+        private void dgClientes_SelectionChanged(object sender, EventArgs e)
+        {
+            /*if (dgClientes.SelectedRows.Count > 0 && dgClientes.CurrentRow.Index > 0)
+            {
+                //Ir a Marcação
+                frmMarcacao marca = new frmMarcacao();
+                marca.Appointment.IdMarcacao = Int32.Parse(dgClientes.Rows[dgClientes.CurrentRow.Index].Cells[0].Value.ToString());
+                marca.ShowDialog();
+                carregarHistorico();
+            }*/
+        }
+
+        private void dgClientes_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgClientes.SelectedRows.Count > 0 && e.RowIndex > 0)
+            {
+                //Ir a Marcação
+                frmMarcacao marca = new frmMarcacao();
+                marca.Appointment.IdMarcacao = Int32.Parse(dgClientes.Rows[e.RowIndex].Cells[0].Value.ToString());
+                marca.Appointment.IdCliente = cli.IdCliente;
+
+                TipoTratamento tipo = new TipoTratamento();
+                tipo = tipo.pesquisarTipo(dgClientes.Rows[e.RowIndex].Cells[3].Value.ToString());
+                marca.Appointment.IdTipoTratamento = tipo.IdTipoTratamento;
+
+                Marcacao aux = new Marcacao();
+                aux = aux.saberMarcacao(Int32.Parse(dgClientes.Rows[e.RowIndex].Cells[0].Value.ToString()));
+
+                marca.Appointment.DataHoraInicio = aux.DataHoraInicio;
+                marca.Appointment.DataHoraFim = DateTime.Parse(dgClientes.Rows[e.RowIndex].Cells[2].Value.ToString());
+                marca.Appointment.Observacoes = dgClientes.Rows[e.RowIndex].Cells[4].Value.ToString();
+                marca.ShowDialog();
+                //carregarHistorico();
+            }
         }
     }
 }

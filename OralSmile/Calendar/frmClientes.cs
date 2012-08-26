@@ -105,6 +105,8 @@ namespace Calendar
             dgClientes.Columns["localidade"].ReadOnly = true;
 
             dgClientes.MultiSelect = false;
+
+            dgClientes.ClearSelection();
         }
 
         private void frmClientes_Load(object sender, EventArgs e)

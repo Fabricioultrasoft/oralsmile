@@ -59,6 +59,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.dgClientes = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).BeginInit();
             this.SuspendLayout();
             // 
             // txtProcesso
@@ -333,11 +335,28 @@
             this.label14.TabIndex = 30;
             this.label14.Text = "Nº Utente:";
             // 
+            // dgClientes
+            // 
+            this.dgClientes.AllowUserToAddRows = false;
+            this.dgClientes.AllowUserToDeleteRows = false;
+            this.dgClientes.AllowUserToResizeColumns = false;
+            this.dgClientes.AllowUserToResizeRows = false;
+            this.dgClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgClientes.Location = new System.Drawing.Point(15, 268);
+            this.dgClientes.Name = "dgClientes";
+            this.dgClientes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgClientes.Size = new System.Drawing.Size(496, 231);
+            this.dgClientes.TabIndex = 31;
+            this.dgClientes.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgClientes_RowEnter);
+            this.dgClientes.SelectionChanged += new System.EventHandler(this.dgClientes_SelectionChanged);
+            // 
             // frmNovoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 274);
+            this.ClientSize = new System.Drawing.Size(524, 504);
+            this.Controls.Add(this.dgClientes);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -378,6 +397,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ficha de Cliente";
             this.Load += new System.EventHandler(this.frmNovoCliente_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -416,5 +436,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.DataGridView dgClientes;
     }
 }
