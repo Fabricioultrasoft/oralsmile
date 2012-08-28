@@ -263,7 +263,7 @@ namespace Calendar
             this.grpBox1.Controls.Add(this.label5);
             this.grpBox1.Controls.Add(this.button6);
             this.grpBox1.Controls.Add(this.trackBar1);
-            this.grpBox1.Location = new System.Drawing.Point(299, 7);
+            this.grpBox1.Location = new System.Drawing.Point(306, 7);
             this.grpBox1.Name = "grpBox1";
             this.grpBox1.Size = new System.Drawing.Size(389, 118);
             this.grpBox1.TabIndex = 22;

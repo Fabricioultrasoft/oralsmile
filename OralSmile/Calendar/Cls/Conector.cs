@@ -15,7 +15,7 @@ namespace Calendar.Cls
          * IP: 192.168.1.66
          */
 
-        private string coneccao ="Data Source=192.168.2.100\\SQLEXPRESS;Initial Catalog=OralSmile;user ID=user1;password=dino";
+        private string coneccao ="Data Source=192.168.1.66\\SQLEXPRESS;Initial Catalog=OralSmile;user ID=user1;password=dino";
 
 		public Conector()
 		{
