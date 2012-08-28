@@ -402,16 +402,16 @@ namespace Calendar.Cls
         }
 
 
-        public Cliente[] todosClientes()
+        public Cliente[] pesquisarProcesso(int idProcesso)
         {
-            Cliente[] cliente = new Cliente[contarClientes()];
+            Cliente[] cliente = new Cliente[contarProcessos(idProcesso)];
             DataBase db = new DataBase();
 
             SqlParameter[] p = new SqlParameter[1];
 
-            p[0] = new SqlParameter();
+            p[0] = new SqlParameter("@n_cliente", idProcesso);
 
-            SqlDataReader dr = db.executaSQLParams("Select idCliente, nome, apelidos, n_cliente, localidade, morada from Clientes order by 4, 2, 3;", p, false);
+            SqlDataReader dr = db.executaSQLParams("Select idCliente, nome, apelidos, n_cliente, localidade, morada, telefone, telemovel from Clientes where n_cliente=@n_cliente order by 4, 2, 3;", p, true);
 
 
             if (dr.HasRows)
@@ -426,6 +426,42 @@ namespace Calendar.Cls
                     cliente[x].NumCliente = Int32.Parse(dr[3].ToString());
                     cliente[x].Localidade = dr[4].ToString();
                     cliente[x].Morada = dr[5].ToString();
+                    cliente[x].Telefone = Int32.Parse(dr[6].ToString());
+                    cliente[x].telemovel = Int32.Parse(dr[7].ToString());
+                    x++;
+                }
+            }
+
+            return cliente;
+        }
+
+
+        public Cliente[] todosClientes()
+        {
+            Cliente[] cliente = new Cliente[contarClientes()];
+            DataBase db = new DataBase();
+
+            SqlParameter[] p = new SqlParameter[1];
+
+            p[0] = new SqlParameter();
+
+            SqlDataReader dr = db.executaSQLParams("Select idCliente, nome, apelidos, n_cliente, localidade, morada, telefone, telemovel from Clientes order by 4, 2, 3;", p, false);
+
+
+            if (dr.HasRows)
+            {
+                int x = 0;
+                while (dr.Read())
+                {
+                    cliente[x] = new Cliente();
+                    cliente[x].IdCliente = Int32.Parse(dr[0].ToString());
+                    cliente[x].Nome = dr[1].ToString();
+                    cliente[x].Apelidos = dr[2].ToString();
+                    cliente[x].NumCliente = Int32.Parse(dr[3].ToString());
+                    cliente[x].Localidade = dr[4].ToString();
+                    cliente[x].Morada = dr[5].ToString();
+                    cliente[x].Telefone = Int32.Parse(dr[6].ToString());
+                    cliente[x].telemovel = Int32.Parse(dr[7].ToString());
                     x++;
                 }
             }
@@ -542,6 +578,23 @@ namespace Calendar.Cls
             p[0] = new SqlParameter();
 
             SqlDataReader dr = db.executaSQLParams("select count(*) from Clientes;", p, false);
+
+            if (dr.HasRows)
+            {
+                dr.Read();
+                return Int32.Parse(dr[0].ToString());
+            }
+            return -1;
+        }
+
+
+        private int contarProcessos(int idProcesso)
+        {
+            DataBase db = new DataBase();
+            SqlParameter[] p = new SqlParameter[1];
+            p[0] = new SqlParameter("@n_cliente", idProcesso);
+
+            SqlDataReader dr = db.executaSQLParams("select count(*) from Clientes where n_cliente=@n_cliente;", p, true);
 
             if (dr.HasRows)
             {
