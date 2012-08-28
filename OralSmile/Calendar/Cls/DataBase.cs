@@ -45,8 +45,9 @@ namespace Calendar.Cls
 
                 return dt;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                string asd = ex.Message;
                 return null;
             }
         }

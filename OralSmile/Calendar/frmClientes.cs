@@ -39,6 +39,19 @@ namespace Calendar
             Cliente cli = new Cliente();
             Cliente[] aux = cli.todosClientes();
 
+            datagrid(aux);
+        }
+
+
+        private void soNumeros(KeyPressEventArgs e)
+        {
+            if (((int)e.KeyChar < 48 || (int)e.KeyChar > 57) && (int)e.KeyChar != 8) //verifica se a tecla pressionada é um algarismo ou tecla backspace
+                e.Handled = true;
+        }
+
+
+        private void datagrid(Cliente[] aux)
+        {
             //Preencher Datagrid
             DataTable tabela = new DataTable("Cli");
             tabela.Columns.Add("idCliente");
@@ -47,25 +60,29 @@ namespace Calendar
             tabela.Columns.Add("apelidos");
             tabela.Columns.Add("morada");
             tabela.Columns.Add("localidade");
+            tabela.Columns.Add("telefone");
+            tabela.Columns.Add("telemovel");
 
             DataRow row;
             DataView view;
 
-            if (aux[0] != null)
+            if (aux != null)
             {
                 // Create new DataRow objects and add to DataTable.    
                 for (int i = 0; i < aux.Length; i++)
                 {
                     row = tabela.NewRow();
                     row["idCliente"] = aux[i].IdCliente.ToString();
-                    
-                    if(aux[i].NumCliente != 0)
+
+                    if (aux[i].NumCliente != 0)
                         row["n_cliente"] = aux[i].NumCliente.ToString();
 
                     row["nome"] = aux[i].Nome;
                     row["apelidos"] = aux[i].Apelidos;
                     row["morada"] = aux[i].Morada;
                     row["localidade"] = aux[i].Localidade;
+                    row["telefone"] = aux[i].Telefone.ToString();
+                    row["telemovel"] = aux[i].Telemovel.ToString();
                     tabela.Rows.Add(row);
                 }
             }
@@ -85,15 +102,16 @@ namespace Calendar
             dgClientes.Columns["idCliente"].Visible = false;
 
             dgClientes.Columns["n_cliente"].HeaderText = "Proc.";
-            dgClientes.Columns["n_cliente"].Width = 40;
+            dgClientes.Columns["n_cliente"].Width = 54;
             dgClientes.Columns["n_cliente"].ReadOnly = true;
+            dgClientes.Columns["n_cliente"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             dgClientes.Columns["nome"].HeaderText = "Nome";
-            dgClientes.Columns["nome"].Width = 190;
+            dgClientes.Columns["nome"].Width = 160;
             dgClientes.Columns["nome"].ReadOnly = true;
 
             dgClientes.Columns["apelidos"].HeaderText = "Apelidos";
-            dgClientes.Columns["apelidos"].Width = 225;
+            dgClientes.Columns["apelidos"].Width = 156;
             dgClientes.Columns["apelidos"].ReadOnly = true;
 
             dgClientes.Columns["morada"].HeaderText = "Morada";
@@ -101,8 +119,18 @@ namespace Calendar
             dgClientes.Columns["morada"].ReadOnly = true;
 
             dgClientes.Columns["localidade"].HeaderText = "Localidade";
-            dgClientes.Columns["localidade"].Width = 150;
+            dgClientes.Columns["localidade"].Width = 100;
             dgClientes.Columns["localidade"].ReadOnly = true;
+
+            dgClientes.Columns["telefone"].HeaderText = "Telefone";
+            dgClientes.Columns["telefone"].Width = 70;
+            dgClientes.Columns["telefone"].ReadOnly = true;
+            dgClientes.Columns["telefone"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dgClientes.Columns["telemovel"].HeaderText = "Telemovel";
+            dgClientes.Columns["telemovel"].Width = 70;
+            dgClientes.Columns["telemovel"].ReadOnly = true;
+            dgClientes.Columns["telemovel"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             dgClientes.MultiSelect = false;
 
@@ -125,6 +153,26 @@ namespace Calendar
 
                 carregarclientes();
             }
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            if (!txtProcesso.Text.Equals(string.Empty))
+            {
+                //carregar datagrid dado o num processo
+                Cliente cli = new Cliente();
+                Cliente[] aux = cli.pesquisarProcesso(Int32.Parse(txtProcesso.Text));
+                datagrid(aux);
+            }
+            else
+            {
+                carregarclientes();
+            }
+        }
+
+        private void txtProcesso_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            soNumeros(e);
         }
     }
 }
