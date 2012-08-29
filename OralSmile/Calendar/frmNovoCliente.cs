@@ -13,7 +13,6 @@ namespace Calendar
     public partial class frmNovoCliente : Form
     {
         private Cliente cli;
-        private int linha;
         private bool novo;
 
         public frmNovoCliente()
@@ -198,7 +197,6 @@ namespace Calendar
         private void frmNovoCliente_Load(object sender, EventArgs e)
         {
             this.Height = 295;
-            linha = -1;
 
             if (novo)
                 btnHistorico.Visible = false;
@@ -342,31 +340,27 @@ namespace Calendar
         }
 
 
-        private void dgClientes_RowEnter(object sender, DataGridViewCellEventArgs e)
+        private void dgClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            linha = e.RowIndex;
-            if (dgClientes.SelectedRows.Count > 0 && linha > -1)
-            {
-                //Ir a Marcação
-                frmMarcacao marca = new frmMarcacao();
-                marca.Leitura = true;
-                marca.Appointment.IdMarcacao = Int32.Parse(dgClientes.Rows[e.RowIndex].Cells[0].Value.ToString());
-                marca.Appointment.IdCliente = cli.IdCliente;
+            //Ir a Marcação
+            frmMarcacao marca = new frmMarcacao();
+            marca.Leitura = true;
+            marca.Appointment.IdMarcacao = Int32.Parse(dgClientes.Rows[e.RowIndex].Cells[0].Value.ToString());
+            marca.Appointment.IdCliente = cli.IdCliente;
 
-                TipoTratamento tipo = new TipoTratamento();
-                tipo = tipo.pesquisarTipo(dgClientes.Rows[e.RowIndex].Cells[3].Value.ToString());
-                marca.Appointment.IdTipoTratamento = tipo.IdTipoTratamento;
+            TipoTratamento tipo = new TipoTratamento();
+            tipo = tipo.pesquisarTipo(dgClientes.Rows[e.RowIndex].Cells[3].Value.ToString());
+            marca.Appointment.IdTipoTratamento = tipo.IdTipoTratamento;
 
-                Marcacao aux = new Marcacao();
-                aux = aux.saberMarcacao(Int32.Parse(dgClientes.Rows[e.RowIndex].Cells[0].Value.ToString()));
+            Marcacao aux = new Marcacao();
+            aux = aux.saberMarcacao(Int32.Parse(dgClientes.Rows[e.RowIndex].Cells[0].Value.ToString()));
 
-                marca.Appointment.DataHoraInicio = aux.DataHoraInicio;
-                marca.Appointment.DataHoraFim = DateTime.Parse(dgClientes.Rows[e.RowIndex].Cells[2].Value.ToString());
-                marca.Appointment.Observacoes = dgClientes.Rows[e.RowIndex].Cells[4].Value.ToString();
-                marca.ShowDialog();
-                
-                dgClientes.ClearSelection();
-            }
+            marca.Appointment.DataHoraInicio = aux.DataHoraInicio;
+            marca.Appointment.DataHoraFim = DateTime.Parse(dgClientes.Rows[e.RowIndex].Cells[2].Value.ToString());
+            marca.Appointment.Observacoes = dgClientes.Rows[e.RowIndex].Cells[4].Value.ToString();
+            marca.ShowDialog();
+
+            dgClientes.ClearSelection();
         }
     }
 }

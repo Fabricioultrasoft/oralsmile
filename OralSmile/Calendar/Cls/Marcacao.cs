@@ -10,6 +10,7 @@ namespace Calendar.Cls
         private int idMarcacao, idCliente, idTipoTratamento;
         private string observacores;
         private DateTime datahora_inicio, datahora_fim;
+        private long cor;
 
         public Marcacao()
         {
@@ -19,6 +20,7 @@ namespace Calendar.Cls
             this.observacores = string.Empty;
             this.datahora_fim = new DateTime();
             this.datahora_inicio = new DateTime();
+            this.cor = -1;
         }
 
 
@@ -30,6 +32,7 @@ namespace Calendar.Cls
             this.observacores = string.Empty;
             this.datahora_fim = datahora_fim;
             this.datahora_inicio = datahora_inicio;
+            this.cor = -1;
         }
 
 
@@ -42,8 +45,21 @@ namespace Calendar.Cls
             this.datahora_fim = datahora_fim;
             this.datahora_inicio = datahora_inicio;
             this.observacores = obs;
+            this.cor = -1;
         }
 
+
+        public long Cor
+        {
+            set
+            {
+                this.cor = value;
+            }
+            get
+            {
+                return this.cor;
+            }
+        }
 
 
         public int IdMarcacao
@@ -123,9 +139,9 @@ namespace Calendar.Cls
         }
 
 
-        public bool criarMarcacao(int idCliente, DateTime datahora_inicio, DateTime datahora_fim, int idTipoTrat, string obs)
+        public bool criarMarcacao(int idCliente, DateTime datahora_inicio, DateTime datahora_fim, int idTipoTrat, string obs, long cor)
         {
-            SqlParameter[] p = new SqlParameter[5];
+            SqlParameter[] p = new SqlParameter[6];
 
             for(int i=0; i < p.Length; i++)
             {
@@ -148,6 +164,9 @@ namespace Calendar.Cls
             p[4].ParameterName = "@datahora_fim";
             p[4].Value = datahora_fim;
 
+            p[5].ParameterName = "@cor";
+            p[5].Value = cor;
+
             DataBase db = new DataBase();
 
             db.executaSQLTrasact("criarMarcacao", p, false, out p);
@@ -159,9 +178,9 @@ namespace Calendar.Cls
         }
 
 
-        public bool editarMarcacao(int idMarcacao, int idCliente, DateTime datahora_inicio, DateTime datahora_fim, int idTipoTrat, string obs)
+        public bool editarMarcacao(int idMarcacao, int idCliente, DateTime datahora_inicio, DateTime datahora_fim, int idTipoTrat, string obs, long cor)
         {
-            SqlParameter[] p = new SqlParameter[6];
+            SqlParameter[] p = new SqlParameter[7];
 
             for (int i = 0; i < p.Length; i++)
             {
@@ -186,6 +205,9 @@ namespace Calendar.Cls
 
             p[5].ParameterName = "@idMarcacao";
             p[5].Value = idMarcacao;
+
+            p[6].ParameterName = "@cor";
+            p[6].Value = cor;
 
             DataBase db = new DataBase();
 
@@ -226,7 +248,7 @@ namespace Calendar.Cls
         {
             Marcacao aux = new Marcacao();
 
-            SqlParameter[] p = new SqlParameter[6];
+            SqlParameter[] p = new SqlParameter[7];
             p[0] = new SqlParameter("@idMarcacao", idMarcacao);
             
             p[1] = new SqlParameter();
@@ -249,6 +271,10 @@ namespace Calendar.Cls
             p[5].ParameterName = "@idTipoTratamento";
             p[5].Direction = System.Data.ParameterDirection.Output;
 
+            p[6] = new SqlParameter();
+            p[6].ParameterName = "@cor";
+            p[6].Direction = System.Data.ParameterDirection.Output;
+
             DataBase db = new DataBase();
 
             db.executaSQLTrasact("selectMarcacao", p, true, out p);
@@ -258,6 +284,10 @@ namespace Calendar.Cls
             aux.observacores = p[2].Value.ToString();
             aux.IdCliente = Int32.Parse(p[3].Value.ToString());
             aux.IdTipoTratamento = Int32.Parse(p[4].Value.ToString());
+            if (!p[5].Value.ToString().Equals(""))
+                aux.Cor = long.Parse(p[5].Value.ToString());
+            else
+                aux.Cor = -1;
 
             return aux;
         }
@@ -322,7 +352,7 @@ namespace Calendar.Cls
 
             p[0] = new SqlParameter();
 
-            SqlDataReader dr = db.executaSQLParams("Select idMarcacao, datahora_inicio, datahora_fim, observacoes, idCliente, idTipoTratamento from Marcacoes;", p, false);
+            SqlDataReader dr = db.executaSQLParams("Select idMarcacao, datahora_inicio, datahora_fim, observacoes, idCliente, idTipoTratamento, cor from Marcacoes;", p, false);
 
 
             if (dr.HasRows)
@@ -331,6 +361,11 @@ namespace Calendar.Cls
                 while (dr.Read())
                 {
                     marca[x] = new Marcacao(Int32.Parse(dr[0].ToString()), Int32.Parse(dr[4].ToString()), Int32.Parse(dr[5].ToString()), DateTime.Parse(dr[1].ToString()), DateTime.Parse(dr[2].ToString()), dr[3].ToString());
+
+                    if (!dr[6].ToString().Equals(""))
+                        marca[x].Cor = long.Parse(dr[6].ToString());
+                    else
+                        marca[x].Cor = -1;
                     x++;
                 }
             }

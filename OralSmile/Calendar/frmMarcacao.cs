@@ -58,6 +58,7 @@ namespace Calendar
                 marcacao.IdTipoTratamento = (cmbIdTipoTratamento.SelectedItem as Item).ID;
                 marcacao.IdCliente = (cmbCliente.SelectedItem as Item).ID;
 
+
                 if(cmbCliente.SelectedIndex > 0 && cmbIdTipoTratamento.SelectedIndex > 0)
                     this.Close();
                 else
@@ -123,6 +124,7 @@ namespace Calendar
                 txtHoraFinal.ReadOnly = true;
                 cmbCliente.Enabled = false;
                 cmbIdTipoTratamento.Enabled = false;
+                btnPesquisa.Visible = false;
 
                 txtObs.BackColor = Color.White;
                 txtDataFinal.BackColor = Color.White;
@@ -141,6 +143,7 @@ namespace Calendar
                 txtHoraFinal.ReadOnly = false;
                 cmbCliente.Enabled = true;
                 cmbIdTipoTratamento.Enabled = true;
+                btnPesquisa.Visible = true;
             }
         }
 
