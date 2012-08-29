@@ -46,6 +46,7 @@ namespace Calendar
                 app.EndDate = aux[i].DataHoraFim;
                 app.IdMarcacao = aux[i].IdMarcacao;
                 app.Obervacoes = aux[i].Observacoes;
+                app.Color = Color.FromArgb(int.Parse(aux[i].Cor.ToString()));
 
                 Cliente cli = new Cliente();
                 cli = cli.pesquisaCliente(aux[i].IdCliente);
@@ -54,9 +55,9 @@ namespace Calendar
                 tipo = tipo.pesquisarTipo(aux[i].IdTipoTratamento);
 
                 if (aux[i].Observacoes.Equals(string.Empty))
-                    app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
+                    app.Title = "Proc: " + cli.NumCliente + "-" + cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
                 else
-                    app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + aux[i].Observacoes;
+                    app.Title = "Proc: " + cli.NumCliente + "-" + cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + aux[i].Observacoes;
 
                 m_Appointments.Add(app);
             }
@@ -122,7 +123,7 @@ namespace Calendar
                 app.Obervacoes = marca.Observacoes;
 
                 //Registo na base de dados
-                marca.criarMarcacao(marca.IdCliente, marca.DataHoraInicio, marca.DataHoraFim, marca.IdTipoTratamento, marca.Observacoes);
+                marca.criarMarcacao(marca.IdCliente, marca.DataHoraInicio, marca.DataHoraFim, marca.IdTipoTratamento, marca.Observacoes, -1);
 
                 Cliente cli = new Cliente();
                 cli = cli.pesquisaCliente(marca.IdCliente);
@@ -131,9 +132,9 @@ namespace Calendar
                 tipo = tipo.pesquisarTipo(marca.IdTipoTratamento);
 
                 if (marca.Observacoes.Equals(string.Empty))
-                    app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
+                    app.Title = "Proc: " + cli.NumCliente + "-" + cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
                 else
-                    app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + marca.Observacoes;
+                    app.Title = "Proc: " + cli.NumCliente + "-" + cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + marca.Observacoes;
 
                 m_Appointments.Add(app);
 
@@ -188,6 +189,11 @@ namespace Calendar
                 if (colorDialog1.ShowDialog(this) == DialogResult.OK)
                 {
                     dayView1.SelectedAppointment.Color = colorDialog1.Color;
+
+                    Marcacao marca = new Marcacao();
+                    marca = marca.saberMarcacao(dayView1.SelectedAppointment.IdMarcacao);
+                    marca.Cor = dayView1.SelectedAppointment.Color.ToArgb();
+                    marca.editarMarcacao(dayView1.SelectedAppointment.IdMarcacao, marca.IdCliente, marca.DataHoraInicio, marca.DataHoraFim, marca.IdTipoTratamento, marca.Observacoes, marca.Cor);
                 }
             }
         }
@@ -238,12 +244,13 @@ namespace Calendar
 
                 marca.Appointment.IdCliente = aux.IdCliente;
                 marca.Appointment.IdTipoTratamento = aux.IdTipoTratamento;
+                marca.Appointment.Cor = aux.Cor;
 
                 marca.ShowDialog();
 
                 if (marca.Appointment.IdMarcacao != -1)
                 {
-                    marca.Appointment.editarMarcacao(marca.Appointment.IdMarcacao, marca.Appointment.IdCliente, marca.Appointment.DataHoraInicio, marca.Appointment.DataHoraFim, marca.Appointment.IdTipoTratamento, marca.Appointment.Observacoes);
+                    marca.Appointment.editarMarcacao(marca.Appointment.IdMarcacao, marca.Appointment.IdCliente, marca.Appointment.DataHoraInicio, marca.Appointment.DataHoraFim, marca.Appointment.IdTipoTratamento, marca.Appointment.Observacoes, marca.Appointment.Cor);
 
                     m_Appointments.Remove(dayView1.SelectedAppointment);
 
@@ -252,6 +259,7 @@ namespace Calendar
                     app.StartDate = marca.Appointment.DataHoraInicio;
                     app.EndDate = marca.Appointment.DataHoraFim;
                     app.Obervacoes = marca.Appointment.Observacoes;
+                    app.Color = Color.FromArgb(int.Parse(marca.Appointment.Cor.ToString()));
 
                     Cliente cli = new Cliente();
                     cli = cli.pesquisaCliente(marca.Appointment.IdCliente);
@@ -260,9 +268,9 @@ namespace Calendar
                     tipo = tipo.pesquisarTipo(marca.Appointment.IdTipoTratamento);
 
                     if (marca.Appointment.Observacoes.Equals(string.Empty))
-                        app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
+                        app.Title = "Proc: " + cli.NumCliente + "-" + cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao;
                     else
-                        app.Title = cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + marca.Appointment.Observacoes;
+                        app.Title = "Proc: " + cli.NumCliente + "-" + cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + marca.Appointment.Observacoes;
 
                     m_Appointments.Add(app);
                     dayView1.Invalidate();

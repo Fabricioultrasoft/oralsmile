@@ -142,26 +142,14 @@ namespace Calendar
             carregarclientes();
         }
 
-        private void dgClientes_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dgClientes.SelectedRows.Count > 0 && dgClientes.CurrentRow.Index > 0)
-            {
-                cliente.IdCliente = Int32.Parse(dgClientes.Rows[dgClientes.CurrentRow.Index].Cells[0].Value.ToString());
-                frmNovoCliente cli = new frmNovoCliente();
-                cli.Cliente = cliente;
-                cli.ShowDialog();
-
-                carregarclientes();
-            }
-        }
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
-            if (!txtProcesso.Text.Equals(string.Empty))
+            if (!txtProcesso.Text.Equals(string.Empty) || !txtNome.Text.Equals(string.Empty) || !txtApelidos.Text.Equals(string.Empty))
             {
                 //carregar datagrid dado o num processo
                 Cliente cli = new Cliente();
-                Cliente[] aux = cli.pesquisarProcesso(Int32.Parse(txtProcesso.Text));
+                Cliente[] aux = cli.pesquisarClientes("OU", txtProcesso.Text, txtNome.Text, txtApelidos.Text);
                 datagrid(aux);
             }
             else
@@ -173,6 +161,16 @@ namespace Calendar
         private void txtProcesso_KeyPress(object sender, KeyPressEventArgs e)
         {
             soNumeros(e);
+        }
+
+        private void dgClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            cliente.IdCliente = Int32.Parse(dgClientes.Rows[e.RowIndex].Cells[0].Value.ToString());
+            frmNovoCliente cli = new frmNovoCliente();
+            cli.Cliente = cliente;
+            cli.ShowDialog();
+
+            carregarclientes();
         }
     }
 }
