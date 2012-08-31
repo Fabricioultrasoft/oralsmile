@@ -28,9 +28,14 @@ namespace Calendar
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             Calendar.DrawTool drawTool1 = new Calendar.DrawTool();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dayView1 = new Calendar.DayView();
+            this.menuDrt = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mItemAtrasada = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemChegou = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemOK = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,6 +57,7 @@ namespace Calendar
             this.grpBox1 = new System.Windows.Forms.GroupBox();
             this.btnNovoCliente = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
+            this.menuDrt.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -62,6 +68,7 @@ namespace Calendar
             // 
             drawTool1.DayView = this.dayView1;
             this.dayView1.ActiveTool = drawTool1;
+            this.dayView1.ContextMenuStrip = this.menuDrt;
             this.dayView1.DaysToShow = 3;
             this.dayView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dayView1.Font = new System.Drawing.Font("Segoe UI", 8F);
@@ -79,6 +86,37 @@ namespace Calendar
             this.dayView1.WorkingHourStart = 9;
             this.dayView1.WorkingMinuteStart = 0;
             this.dayView1.DoubleClick += new System.EventHandler(this.dayView1_DoubleClick);
+            // 
+            // menuDrt
+            // 
+            this.menuDrt.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mItemAtrasada,
+            this.mItemChegou,
+            this.mItemOK});
+            this.menuDrt.Name = "menuDrt";
+            this.menuDrt.Size = new System.Drawing.Size(171, 92);
+            this.menuDrt.Text = "teste";
+            // 
+            // mItemAtrasada
+            // 
+            this.mItemAtrasada.Name = "mItemAtrasada";
+            this.mItemAtrasada.Size = new System.Drawing.Size(170, 22);
+            this.mItemAtrasada.Text = "Consulta atrasada";
+            this.mItemAtrasada.Click += new System.EventHandler(this.mItemAtrasada_Click);
+            // 
+            // mItemChegou
+            // 
+            this.mItemChegou.Name = "mItemChegou";
+            this.mItemChegou.Size = new System.Drawing.Size(170, 22);
+            this.mItemChegou.Text = "Acabou de chegar";
+            this.mItemChegou.Click += new System.EventHandler(this.mItemChegou_Click);
+            // 
+            // mItemOK
+            // 
+            this.mItemOK.Name = "mItemOK";
+            this.mItemOK.Size = new System.Drawing.Size(170, 22);
+            this.mItemOK.Text = "Programação OK";
+            this.mItemOK.Click += new System.EventHandler(this.mItemOK_Click);
             // 
             // panel1
             // 
@@ -315,6 +353,7 @@ namespace Calendar
             this.Text = "OralSmile - Agenda de Marcações v1.3";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.menuDrt.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -349,6 +388,10 @@ namespace Calendar
         private System.Windows.Forms.GroupBox grpBox1;
         private System.Windows.Forms.Button btnNovoCliente;
         private System.Windows.Forms.Button btnClientes;
+        private System.Windows.Forms.ContextMenuStrip menuDrt;
+        private System.Windows.Forms.ToolStripMenuItem mItemAtrasada;
+        private System.Windows.Forms.ToolStripMenuItem mItemChegou;
+        private System.Windows.Forms.ToolStripMenuItem mItemOK;
     }
 }
 

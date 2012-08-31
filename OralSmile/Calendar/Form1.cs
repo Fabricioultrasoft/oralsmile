@@ -283,5 +283,53 @@ namespace Calendar
             frmClientes cli = new frmClientes();
             cli.ShowDialog();
         }
+
+        private void mItemAtrasada_Click(object sender, EventArgs e)
+        {
+            if (dayView1.SelectedAppointment != null)
+            {
+                escolherCor(sender, dayView1);
+            }
+        }
+
+        private void mItemChegou_Click(object sender, EventArgs e)
+        {
+            if (dayView1.SelectedAppointment != null)
+            {
+                escolherCor(sender, dayView1);
+            }
+        }
+
+        private void mItemOK_Click(object sender, EventArgs e)
+        {
+            if (dayView1.SelectedAppointment != null)
+            {
+                escolherCor(sender, dayView1);
+            }
+        }
+
+
+        private void escolherCor(object sender, DayView vista)
+        {
+            Marcacao marca = new Marcacao();
+            marca = marca.saberMarcacao(vista.SelectedAppointment.IdMarcacao);
+
+            if (((ToolStripMenuItem)sender).Name.Equals("mItemAtrasada"))
+            {
+                marca.Cor = Color.Red.ToArgb();
+                vista.SelectedAppointment.Color = Color.Red;
+            }
+            else if (((ToolStripMenuItem)sender).Name.Equals("mItemOK"))
+            {
+                marca.Cor = Color.Green.ToArgb();
+                vista.SelectedAppointment.Color = Color.Green;
+            }
+            else
+            {
+                marca.Cor = Color.Yellow.ToArgb();
+                vista.SelectedAppointment.Color = Color.Yellow;
+            }
+            marca.editarMarcacao(vista.SelectedAppointment.IdMarcacao, marca.IdCliente, marca.DataHoraInicio, marca.DataHoraFim, marca.IdTipoTratamento, marca.Observacoes, marca.Cor);
+        }
     }
 }
