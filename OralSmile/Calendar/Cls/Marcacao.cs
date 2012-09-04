@@ -389,5 +389,27 @@ namespace Calendar.Cls
             }
             return -1;
         }
+
+
+        public int saberID(int idCliente, DateTime inicio, DateTime fim, int idTipo)
+        {
+            SqlParameter[] p = new SqlParameter[5];
+            p[0] = new SqlParameter("@idCliente", idCliente);
+            p[1] = new SqlParameter("@datahora_inicio", inicio);
+            p[2] = new SqlParameter("@datahora_fim", fim);
+            p[3] = new SqlParameter("@idTipoTratamento", idTipo);
+            p[4] = new SqlParameter();
+            p[4].ParameterName = "@idMarcacao";
+            p[4].Direction = System.Data.ParameterDirection.Output;
+
+            DataBase db = new DataBase();
+
+            db.executaSQLTrasact("saberIdMarcacao", p, true, out p);
+
+            if (!p[0].Value.ToString().Equals(""))
+                return Int32.Parse(p[0].Value.ToString());
+            else
+                return -1;
+        }
     }
 }
