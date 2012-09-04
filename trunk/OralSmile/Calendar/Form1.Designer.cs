@@ -29,13 +29,12 @@ namespace Calendar
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Calendar.DrawTool drawTool1 = new Calendar.DrawTool();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.dayView1 = new Calendar.DayView();
+            Calendar.DrawTool drawTool1 = new Calendar.DrawTool();
             this.menuDrt = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mItemAtrasada = new System.Windows.Forms.ToolStripMenuItem();
-            this.mItemChegou = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemOK = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemAtrasado = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemUrgencia = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -57,6 +56,10 @@ namespace Calendar
             this.grpBox1 = new System.Windows.Forms.GroupBox();
             this.btnNovoCliente = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
+            this.mItemChegou = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItemFaltou = new System.Windows.Forms.ToolStripMenuItem();
+            this.dayView1 = new Calendar.DayView();
+            this.mItemApagar = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDrt.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -64,59 +67,39 @@ namespace Calendar
             this.grpBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dayView1
-            // 
-            drawTool1.DayView = this.dayView1;
-            this.dayView1.ActiveTool = drawTool1;
-            this.dayView1.ContextMenuStrip = this.menuDrt;
-            this.dayView1.DaysToShow = 3;
-            this.dayView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dayView1.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.dayView1.HalfHourHeight = 20;
-            this.dayView1.Location = new System.Drawing.Point(0, 0);
-            this.dayView1.Name = "dayView1";
-            this.dayView1.SelectionEnd = new System.DateTime(((long)(0)));
-            this.dayView1.SelectionStart = new System.DateTime(((long)(0)));
-            this.dayView1.Size = new System.Drawing.Size(1119, 328);
-            this.dayView1.StartDate = new System.DateTime(((long)(0)));
-            this.dayView1.StartHour = 16;
-            this.dayView1.TabIndex = 0;
-            this.dayView1.Text = "dayView1";
-            this.dayView1.WorkingHourEnd = 19;
-            this.dayView1.WorkingHourStart = 9;
-            this.dayView1.WorkingMinuteStart = 0;
-            this.dayView1.DoubleClick += new System.EventHandler(this.dayView1_DoubleClick);
-            // 
             // menuDrt
             // 
             this.menuDrt.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mItemAtrasada,
+            this.mItemOK,
+            this.mItemAtrasado,
+            this.mItemUrgencia,
             this.mItemChegou,
-            this.mItemOK});
+            this.mItemFaltou,
+            this.mItemApagar});
             this.menuDrt.Name = "menuDrt";
-            this.menuDrt.Size = new System.Drawing.Size(171, 92);
+            this.menuDrt.Size = new System.Drawing.Size(153, 158);
             this.menuDrt.Text = "teste";
-            // 
-            // mItemAtrasada
-            // 
-            this.mItemAtrasada.Name = "mItemAtrasada";
-            this.mItemAtrasada.Size = new System.Drawing.Size(170, 22);
-            this.mItemAtrasada.Text = "Consulta atrasada";
-            this.mItemAtrasada.Click += new System.EventHandler(this.mItemAtrasada_Click);
-            // 
-            // mItemChegou
-            // 
-            this.mItemChegou.Name = "mItemChegou";
-            this.mItemChegou.Size = new System.Drawing.Size(170, 22);
-            this.mItemChegou.Text = "Acabou de chegar";
-            this.mItemChegou.Click += new System.EventHandler(this.mItemChegou_Click);
             // 
             // mItemOK
             // 
             this.mItemOK.Name = "mItemOK";
-            this.mItemOK.Size = new System.Drawing.Size(170, 22);
-            this.mItemOK.Text = "Programação OK";
-            this.mItemOK.Click += new System.EventHandler(this.mItemOK_Click);
+            this.mItemOK.Size = new System.Drawing.Size(152, 22);
+            this.mItemOK.Text = "OK";
+            this.mItemOK.Click += new System.EventHandler(this.mItemAtrasada_Click);
+            // 
+            // mItemAtrasado
+            // 
+            this.mItemAtrasado.Name = "mItemAtrasado";
+            this.mItemAtrasado.Size = new System.Drawing.Size(152, 22);
+            this.mItemAtrasado.Text = "Atrasado";
+            this.mItemAtrasado.Click += new System.EventHandler(this.mItemChegou_Click);
+            // 
+            // mItemUrgencia
+            // 
+            this.mItemUrgencia.Name = "mItemUrgencia";
+            this.mItemUrgencia.Size = new System.Drawing.Size(152, 22);
+            this.mItemUrgencia.Text = "Urgencia";
+            this.mItemUrgencia.Click += new System.EventHandler(this.mItemOK_Click);
             // 
             // panel1
             // 
@@ -330,6 +313,50 @@ namespace Calendar
             this.btnClientes.Text = "Clientes";
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
+            // mItemChegou
+            // 
+            this.mItemChegou.Name = "mItemChegou";
+            this.mItemChegou.Size = new System.Drawing.Size(152, 22);
+            this.mItemChegou.Text = "Chegou";
+            this.mItemChegou.Click += new System.EventHandler(this.mItemChegou_Click_1);
+            // 
+            // mItemFaltou
+            // 
+            this.mItemFaltou.Name = "mItemFaltou";
+            this.mItemFaltou.Size = new System.Drawing.Size(152, 22);
+            this.mItemFaltou.Text = "Faltou";
+            this.mItemFaltou.Click += new System.EventHandler(this.mItemFaltou_Click);
+            // 
+            // dayView1
+            // 
+            drawTool1.DayView = this.dayView1;
+            this.dayView1.ActiveTool = drawTool1;
+            this.dayView1.ContextMenuStrip = this.menuDrt;
+            this.dayView1.DaysToShow = 3;
+            this.dayView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dayView1.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.dayView1.HalfHourHeight = 20;
+            this.dayView1.Location = new System.Drawing.Point(0, 0);
+            this.dayView1.Name = "dayView1";
+            this.dayView1.SelectionEnd = new System.DateTime(((long)(0)));
+            this.dayView1.SelectionStart = new System.DateTime(((long)(0)));
+            this.dayView1.Size = new System.Drawing.Size(1119, 328);
+            this.dayView1.StartDate = new System.DateTime(((long)(0)));
+            this.dayView1.StartHour = 16;
+            this.dayView1.TabIndex = 0;
+            this.dayView1.Text = "dayView1";
+            this.dayView1.WorkingHourEnd = 19;
+            this.dayView1.WorkingHourStart = 9;
+            this.dayView1.WorkingMinuteStart = 0;
+            this.dayView1.DoubleClick += new System.EventHandler(this.dayView1_DoubleClick);
+            // 
+            // mItemApagar
+            // 
+            this.mItemApagar.Name = "mItemApagar";
+            this.mItemApagar.Size = new System.Drawing.Size(152, 22);
+            this.mItemApagar.Text = "Apagar Cor";
+            this.mItemApagar.Click += new System.EventHandler(this.mItemApagar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -389,9 +416,12 @@ namespace Calendar
         private System.Windows.Forms.Button btnNovoCliente;
         private System.Windows.Forms.Button btnClientes;
         private System.Windows.Forms.ContextMenuStrip menuDrt;
-        private System.Windows.Forms.ToolStripMenuItem mItemAtrasada;
-        private System.Windows.Forms.ToolStripMenuItem mItemChegou;
         private System.Windows.Forms.ToolStripMenuItem mItemOK;
+        private System.Windows.Forms.ToolStripMenuItem mItemAtrasado;
+        private System.Windows.Forms.ToolStripMenuItem mItemUrgencia;
+        private System.Windows.Forms.ToolStripMenuItem mItemChegou;
+        private System.Windows.Forms.ToolStripMenuItem mItemFaltou;
+        private System.Windows.Forms.ToolStripMenuItem mItemApagar;
     }
 }
 

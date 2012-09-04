@@ -125,6 +125,9 @@ namespace Calendar
                 //Registo na base de dados
                 marca.criarMarcacao(marca.IdCliente, marca.DataHoraInicio, marca.DataHoraFim, marca.IdTipoTratamento, marca.Observacoes, -1);
 
+                int id = marca.saberID(marca.IdCliente, marca.DataHoraInicio, marca.DataHoraFim, marca.IdTipoTratamento);
+                app.IdMarcacao = id;
+
                 Cliente cli = new Cliente();
                 cli = cli.pesquisaCliente(marca.IdCliente);
 
@@ -230,7 +233,7 @@ namespace Calendar
 
         private void dayView1_DoubleClick(object sender, EventArgs e)
         {
-            if (dayView1.SelectedAppointment != null)
+            if (dayView1.SelectedAppointment != null && dayView1.SelectedAppointment.IdMarcacao != -1)
             {
                 frmMarcacao marca = new frmMarcacao();
                 marca.Appointment.DataHoraFim = dayView1.SelectedAppointment.EndDate;
@@ -314,22 +317,61 @@ namespace Calendar
             Marcacao marca = new Marcacao();
             marca = marca.saberMarcacao(vista.SelectedAppointment.IdMarcacao);
 
-            if (((ToolStripMenuItem)sender).Name.Equals("mItemAtrasada"))
+            if (((ToolStripMenuItem)sender).Name.Equals("mItemAtrasado"))
             {
-                marca.Cor = Color.Red.ToArgb();
-                vista.SelectedAppointment.Color = Color.Red;
+                marca.Cor = Color.Yellow.ToArgb();
+                vista.SelectedAppointment.Color = Color.Yellow;
             }
             else if (((ToolStripMenuItem)sender).Name.Equals("mItemOK"))
             {
                 marca.Cor = Color.Green.ToArgb();
                 vista.SelectedAppointment.Color = Color.Green;
             }
+            else if (((ToolStripMenuItem)sender).Name.Equals("mItemUrgencia"))
+            {
+                marca.Cor = Color.Red.ToArgb();
+                vista.SelectedAppointment.Color = Color.Red;
+            }
+            else if (((ToolStripMenuItem)sender).Name.Equals("mItemChegou"))
+            {
+                marca.Cor = Color.Blue.ToArgb();
+                vista.SelectedAppointment.Color = Color.Blue;
+            }
+            else if (((ToolStripMenuItem)sender).Name.Equals("mItemFaltou"))
+            {
+                marca.Cor = Color.Black.ToArgb();
+                vista.SelectedAppointment.Color = Color.Black;
+            }
             else
             {
-                marca.Cor = Color.Yellow.ToArgb();
-                vista.SelectedAppointment.Color = Color.Yellow;
+                marca.Cor = Color.White.ToArgb();
+                vista.SelectedAppointment.Color = Color.White;
             }
             marca.editarMarcacao(vista.SelectedAppointment.IdMarcacao, marca.IdCliente, marca.DataHoraInicio, marca.DataHoraFim, marca.IdTipoTratamento, marca.Observacoes, marca.Cor);
+        }
+
+        private void mItemChegou_Click_1(object sender, EventArgs e)
+        {
+            if (dayView1.SelectedAppointment != null)
+            {
+                escolherCor(sender, dayView1);
+            }
+        }
+
+        private void mItemFaltou_Click(object sender, EventArgs e)
+        {
+            if (dayView1.SelectedAppointment != null)
+            {
+                escolherCor(sender, dayView1);
+            }
+        }
+
+        private void mItemApagar_Click(object sender, EventArgs e)
+        {
+            if (dayView1.SelectedAppointment != null)
+            {
+                escolherCor(sender, dayView1);
+            }
         }
     }
 }
