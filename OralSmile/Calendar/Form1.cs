@@ -12,6 +12,7 @@ namespace Calendar
     public partial class Form1 : Form
     {
         List<Appointment> m_Appointments;
+        private Timer timer = new Timer();
 
         public Form1()
         {
@@ -29,8 +30,24 @@ namespace Calendar
             comboBox1.SelectedIndex = 1;
             dayView1.HalfHourHeight = trackBar1.Value;
 
+            timer.Tick += new EventHandler(timer_Tick); 
+            timer.Interval = (1000) * (150);              
+            timer.Enabled = true;                       
+            timer.Start();                              
+
+
             carregarMarcacoes();
         }
+
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            m_Appointments.Clear();
+            carregarMarcacoes();
+            
+            //Comparar numero 
+        }
+
 
         private void carregarMarcacoes()
         {
