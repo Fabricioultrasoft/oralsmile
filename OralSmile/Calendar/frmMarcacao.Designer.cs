@@ -45,6 +45,7 @@
             this.txtHoraFinal = new System.Windows.Forms.MaskedTextBox();
             this.btnHistorico = new System.Windows.Forms.Button();
             this.dgClientes = new System.Windows.Forms.DataGridView();
+            this.btnEliminar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -194,9 +195,9 @@
             // 
             // btnHistorico
             // 
-            this.btnHistorico.Location = new System.Drawing.Point(236, 184);
+            this.btnHistorico.Location = new System.Drawing.Point(301, 184);
             this.btnHistorico.Name = "btnHistorico";
-            this.btnHistorico.Size = new System.Drawing.Size(188, 29);
+            this.btnHistorico.Size = new System.Drawing.Size(249, 29);
             this.btnHistorico.TabIndex = 13;
             this.btnHistorico.Text = "Histórico Marcações";
             this.btnHistorico.UseVisualStyleBackColor = true;
@@ -216,11 +217,22 @@
             this.dgClientes.Size = new System.Drawing.Size(632, 231);
             this.dgClientes.TabIndex = 14;
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(119, 184);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(140, 29);
+            this.btnEliminar.TabIndex = 15;
+            this.btnEliminar.Text = "Eliminar Marcação";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // frmMarcacao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 472);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.dgClientes);
             this.Controls.Add(this.btnHistorico);
             this.Controls.Add(this.txtHoraFinal);
@@ -274,5 +286,6 @@
         private System.Windows.Forms.MaskedTextBox txtHoraFinal;
         private System.Windows.Forms.Button btnHistorico;
         private System.Windows.Forms.DataGridView dgClientes;
+        private System.Windows.Forms.Button btnEliminar;
     }
 }

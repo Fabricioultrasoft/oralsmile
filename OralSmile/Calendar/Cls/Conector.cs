@@ -9,13 +9,14 @@ namespace Calendar.Cls
     class Conector
     {
         private SqlConnection connection;
-        //private string coneccao = "server=GONÇALO-HP\\SQLEXPRESS;Persist Security Info=False;Integrated Security=false;Initial Catalog=OralSmile;User ID=user1; Password=dino";
+        //private string coneccao = "server=Gonçalo-HP\\SQLEXPRESS;Initial Catalog=OralSmile;User ID=user1; Password=dino";
         
         /* Para ligar no cliente:
          * IP: 192.168.1.66
          */
 
-        private string coneccao ="Data Source=192.168.1.66\\SQLEXPRESS;Initial Catalog=OralSmile;user ID=user1;password=dino";
+        //private string coneccao = "Data Source=192.168.2.102,1433;Network Library=DBMSSOCN;Initial Catalog=OralSmile;User ID=user1; Password=dino";
+        private string coneccao ="Data Source=192.168.2.102\\SQLEXPRESS;Initial Catalog=OralSmile;user ID=user1;password=dino";
 
 		public Conector()
 		{
