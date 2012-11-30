@@ -30,10 +30,10 @@ namespace Calendar
             comboBox1.SelectedIndex = 1;
             dayView1.HalfHourHeight = trackBar1.Value;
 
-            timer.Tick += new EventHandler(timer_Tick); 
-            timer.Interval = (1000) * (150);              
-            timer.Enabled = true;                       
-            timer.Start();                              
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = (1000) * (120); //2 minutos (120 segundos)
+            timer.Enabled = true;
+            timer.Start();
 
 
             carregarMarcacoes();
@@ -268,7 +268,7 @@ namespace Calendar
 
                 marca.ShowDialog();
 
-                if (marca.Appointment.IdMarcacao != -1)
+                if (marca.Appointment.IdMarcacao != -1 && !marca.Eliminar)
                 {
                     marca.Appointment.editarMarcacao(marca.Appointment.IdMarcacao, marca.Appointment.IdCliente, marca.Appointment.DataHoraInicio, marca.Appointment.DataHoraFim, marca.Appointment.IdTipoTratamento, marca.Appointment.Observacoes, marca.Appointment.Cor);
 
@@ -293,6 +293,12 @@ namespace Calendar
                         app.Title = "Proc: " + cli.NumCliente + "-" + cli.Nome + " " + cli.Apelidos + " - " + tipo.Descricao + "\n\rObs: " + marca.Appointment.Observacoes;
 
                     m_Appointments.Add(app);
+                    dayView1.Invalidate();
+                }
+                else if (marca.Appointment.IdMarcacao != -1 && marca.Eliminar)
+                {
+                    marca.Appointment.eliminarMarcacao(marca.Appointment.IdMarcacao);
+                    m_Appointments.Remove(dayView1.SelectedAppointment);
                     dayView1.Invalidate();
                 }
             }

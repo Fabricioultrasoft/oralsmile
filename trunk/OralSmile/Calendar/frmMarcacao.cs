@@ -13,7 +13,7 @@ namespace Calendar
     public partial class frmMarcacao : Form
     {
         private Marcacao marcacao;
-        private bool leitura;
+        private bool leitura, eliminar;
 
         public frmMarcacao()
         {
@@ -35,6 +35,19 @@ namespace Calendar
                 return this.leitura;
             }
         }
+
+        public bool Eliminar
+        {
+            set
+            {
+                this.eliminar = value;
+            }
+            get
+            {
+                return this.eliminar;
+            }
+        }
+
 
         public Marcacao Appointment
         {
@@ -125,6 +138,7 @@ namespace Calendar
                 cmbCliente.Enabled = false;
                 cmbIdTipoTratamento.Enabled = false;
                 btnPesquisa.Visible = false;
+                btnEliminar.Visible = false;
 
                 txtObs.BackColor = Color.White;
                 txtDataFinal.BackColor = Color.White;
@@ -144,6 +158,7 @@ namespace Calendar
                 cmbCliente.Enabled = true;
                 cmbIdTipoTratamento.Enabled = true;
                 btnPesquisa.Visible = true;
+                btnEliminar.Visible = true;
             }
         }
 
@@ -307,6 +322,21 @@ namespace Calendar
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.Height = 250;
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (cmbCliente.SelectedIndex > 0)
+            {
+                DialogResult res = MessageBox.Show("Tem a certeza que deseja eliminar esta marcação da agenda?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (res == System.Windows.Forms.DialogResult.Yes)
+                {
+                    this.eliminar = true;
+                    this.Close();
+                }
+                else
+                    this.eliminar = false;
+            }
         }
     }
 }
